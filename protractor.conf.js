@@ -30,7 +30,10 @@ const config = {
     {
       package: 'protractor-console-plugin',
       failOnWarning: true,
-      failOnError: true
+      failOnError: true,
+      exclude: [
+        'Failed to load resource: the server responded with a status'
+      ]
     },
     {
       package: 'protractor-console',
