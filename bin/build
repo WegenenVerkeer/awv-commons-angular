@@ -1,6 +1,6 @@
 #!/bin/bash
 . $(dirname "$0")/_init
 
-$BASEDIR/bin/karma-testing-js
+# $BASEDIR/bin/karma-testing-js
 $BASEDIR/bin/bouw-release-candidate
-$BASEDIR/bin/e2e-testing-js
+# $BASEDIR/bin/e2e-testing-js
