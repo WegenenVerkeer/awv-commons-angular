@@ -32,7 +32,8 @@ export class LocatieZoekerComponent {
     this.zoekForm = formBuilder.group({
       zoek: ""
     });
-    this.zoekForm.valueChanges.debounce(() => {
+    this.zoekForm.valueChanges
+      .debounce(() => {
         // Form changes worden debounced tot deze promise geresolved wordt.
         return new Promise(resolve => {
           // We houden de resolve functie pointer bij om de debounce te kunnen bypassen (bv. bij form submit).

@@ -44,8 +44,7 @@ interface ExtendedResult {
   bron: string;
 }
 
-interface ExtendedGeocoderResult extends google.maps.GeocoderResult, ExtendedResult {
-}
+interface ExtendedGeocoderResult extends google.maps.GeocoderResult, ExtendedResult {}
 
 interface ExtendedPlaceResult extends google.maps.places.PlaceResult, ExtendedResult {
   locatie: any;
@@ -89,8 +88,7 @@ export class ZoekResultaten {
 export class LocatieZoeker {
   private _cache: Promise<GoogleServices> = null;
 
-  constructor(private http: Http) {
-  }
+  constructor(private http: Http) {}
 
   private init(): Promise<GoogleServices> {
     if (this._cache) {

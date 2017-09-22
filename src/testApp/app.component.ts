@@ -6,6 +6,5 @@ import {KaartComponent} from "../lib/kaart/kaart.component";
   templateUrl: "./app.component.html"
 })
 export class AppComponent {
-  @ViewChild(KaartComponent)
-  kaart: KaartComponent;
+  @ViewChild(KaartComponent) kaart: KaartComponent;
 }
