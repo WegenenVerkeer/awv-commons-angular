@@ -1,0 +1,30 @@
+{
+  "name": "@awv/awv-commons-angular",
+  "author": "Team Blauw",
+  "version": "1.0.0-SNAPSHOT",
+  "module": "./awv-commons-angular.es5.js",
+  "es2015": "./awv-commons-angular.js",
+  "typings": "./awv-commons-angular.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.collab.mow.vlaanderen.be:Blauw/awv-commons-angular.git"
+  },
+  "peerDependencies": {
+    "@angular/animations": "^4.3.6",
+    "@angular/common": "^4.3.6",
+    "@angular/compiler": "^4.3.6",
+    "@angular/core": "^4.3.6",
+    "@angular/forms": "^4.3.6",
+    "@angular/platform-browser": "4.3.6",
+    "@angular/router": "4.3.6",
+    "core-js": "^2.5.0",
+    "hammerjs": "^2.0.8",
+    "openlayers": "^4.1.0",
+    "proj4": "^2.3.15",
+    "rxjs": "^5.4.3",
+    "zone.js": "^0.8.17"
+  },
+  "publishConfig": {
+    "registry": "https://collab.mow.vlaanderen.be/artifacts/repository/npm-internal/"
+  }
+}

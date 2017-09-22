@@ -1,0 +1,20 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "target": "es5",
+    "outDir": "../../out/tsc/lib-es5/",
+    "baseUrl": "",
+    "types": []
+  },
+  "files": [
+    "./public_api.ts"
+  ],
+  "angularCompilerOptions": {
+    "annotateForClosureCompiler": true,
+    "strictMetadataEmit": true,
+    "skipTemplateCodegen": true,
+    "flatModuleOutFile": "awv-commons-angular.js",
+    "flatModuleId": "@awv/awv-commons-angular",
+    "genDir": "../../out/tsc/lib-gen-dir/"
+  }
+}

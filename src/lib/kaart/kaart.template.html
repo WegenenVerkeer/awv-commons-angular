@@ -1,0 +1,10 @@
+<div class="fullscreen-container" [style.height.px]="height" [style.width.px]="width">
+  <div #locatieZoeker>
+    <ng-content select="locatie-zoeker-resultaat"></ng-content>
+  </div>
+  <div #knoppen>
+    <ng-content select="md-button-toggle, md-button-toggle-group, start-einde-knop"></ng-content>
+    <ng-content select="md-button-toggle, md-button-toggle-group, routing-knoppen"></ng-content>
+  </div>
+  <div #map [id]="mapElementId" style="height: 100%; width: 100%;"></div>
+</div>

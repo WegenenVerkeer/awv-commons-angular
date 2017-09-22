@@ -1,0 +1,21 @@
+#!/bin/bash
+
+echo
+echo ">>> Protractors awv-commons-angular <<<"
+echo
+. $(dirname "$0")/_init
+rm -rf reports/e2e;mkdir -p reports/e2e/screenshots
+
+# temp dir
+rm -rf $BASEDIR/temp || true; mkdir -p $BASEDIR/temp
+npm run e2e || EXIT_STATUS=$?
+
+if [ $EXIT_STATUS != 0 ]; then
+  echo
+  echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+  echo "Acceptance stage: Er zijn gefaalde testen"
+  echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+  echo
+fi
+
+exit $EXIT_STATUS
