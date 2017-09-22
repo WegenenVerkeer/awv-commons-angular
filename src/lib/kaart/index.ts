@@ -22,3 +22,9 @@ export class KaartModule {
     };
   }
 }
+
+export * from "./kaart.component";
+export * from "./locatie-zoeker.component";
+export * from "./input-clear.component";
+export * from "./locatie-zoeker.service";
+export * from "./kaart.config";
