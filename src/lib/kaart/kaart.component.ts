@@ -65,4 +65,8 @@ export class KaartComponent implements OnInit, AfterViewInit {
     dienstkaartProjectie.setExtent([18000.0, 152999.75, 280144.0, 415143.75]); // zet de extent op die van de dienstkaart
     return dienstkaartProjectie;
   }
+
+  zoomTo(extent: ol.geom.SimpleGeometry | [number, number, number, number]): void {
+    this.map.getView().fit(extent, {size: this.map.getSize()});
+  }
 }
