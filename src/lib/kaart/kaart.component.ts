@@ -7,10 +7,11 @@ import "rxjs/add/operator/take";
 @Component({
   selector: "awv-kaart",
   templateUrl: "./kaart.component.html",
-  styleUrls: ["kaart.component.scss"]
+  styleUrls: ["./kaart.component.scss"]
 })
 export class KaartComponent implements OnInit, AfterViewInit {
   @ViewChild("map") mapElement: ElementRef;
+  @ViewChild("knoppen") knoppenElement: ElementRef;
 
   map: ol.Map;
 

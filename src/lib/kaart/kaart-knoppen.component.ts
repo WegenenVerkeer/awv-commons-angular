@@ -15,10 +15,15 @@ export class KaartKnoppenComponent implements OnInit, OnDestroy {
   constructor(protected kaart: KaartComponent) {}
 
   ngOnInit(): void {
-    this.scaleLine = new ol.control.ScaleLine();
+    this.scaleLine = new ol.control.ScaleLine({
+      target: this.kaart.knoppenElement.nativeElement
+    });
+
     this.zoomSlider = new ol.control.ZoomSlider();
+
     this.fullScreen = new ol.control.FullScreen({
-      source: this.kaart.mapElement.nativeElement.parentElement
+      source: this.kaart.mapElement.nativeElement.parentElement,
+      target: this.kaart.knoppenElement.nativeElement
     });
 
     this.kaart.map.addControl(this.scaleLine);
