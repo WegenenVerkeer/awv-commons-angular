@@ -5,11 +5,12 @@ import {KaartKnoppenComponent} from "./kaart-knoppen.component";
 import {KaartWmsLaagComponent} from "./kaart-wms-laag.component";
 import {KaartVectorLaagComponent} from "./kaart-vector-laag.component";
 import {KaartLayerSwitcherKnopComponent} from "./kaart-layer-switcher-knop.component";
+import {KaartTekenPolygoonLaagComponent} from "./kaart-teken-polygoon-laag.component";
 
 @NgModule({
   imports: [CommonModule],
-  declarations: [KaartComponent, KaartWmsLaagComponent, KaartVectorLaagComponent, KaartKnoppenComponent, KaartLayerSwitcherKnopComponent],
-  exports: [KaartComponent, KaartWmsLaagComponent, KaartVectorLaagComponent, KaartKnoppenComponent, KaartLayerSwitcherKnopComponent]
+  declarations: [KaartComponent, KaartWmsLaagComponent, KaartVectorLaagComponent, KaartKnoppenComponent, KaartLayerSwitcherKnopComponent, KaartTekenPolygoonLaagComponent],
+  exports: [KaartComponent, KaartWmsLaagComponent, KaartVectorLaagComponent, KaartKnoppenComponent, KaartLayerSwitcherKnopComponent, KaartTekenPolygoonLaagComponent]
 })
 export class KaartModule {}
 
