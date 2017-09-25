@@ -39,8 +39,19 @@
                         wmsUrlLayers="referentiepunten"
                         wmsVersion="1.1.1">
     </awv-kaart-wms-laag>
-    <awv-kaart-teken-polygoon-laag></awv-kaart-teken-polygoon-laag>
     <awv-kaart-knoppen></awv-kaart-knoppen>
     <awv-kaart-layer-switcher-knop></awv-kaart-layer-switcher-knop>
+  </awv-kaart>
+</div>
+
+<h3>Met polygoon laag</h3>
+
+<div>
+  <awv-kaart>
+    <awv-kaart-wms-laag titel="Orthofotos (AGIV)"
+                        [wmsUrls]="agivWmsUrls"
+                        wmsUrlLayers="Ortho">
+    </awv-kaart-wms-laag>
+    <awv-kaart-teken-polygoon-laag></awv-kaart-teken-polygoon-laag>
   </awv-kaart>
 </div>
