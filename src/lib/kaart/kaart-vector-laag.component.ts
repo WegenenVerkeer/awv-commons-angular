@@ -17,6 +17,8 @@ export class KaartVectorLaagComponent implements OnInit, OnDestroy {
   @Input() selecteerbaar = true;
   @Input() hoverInteraction: ol.interaction.Interaction;
   @Input() selectInteraction: ol.interaction.Interaction;
+  @Input() extent: ol.geom.SimpleGeometry | [number, number, number, number] = [18000, 152999, 280143, 246528]; // Vlaanderen
+  @Input() zoomToExtent = false;
 
   constructor(protected kaart: KaartComponent) {}
 
@@ -31,6 +33,10 @@ export class KaartVectorLaagComponent implements OnInit, OnDestroy {
 
     if (this.selectInteraction) {
       this.kaart.map.addInteraction(this.selectInteraction);
+    }
+
+    if (this.extent && this.zoomToExtent) {
+      this.kaart.zoomTo(this.extent);
     }
   }
 

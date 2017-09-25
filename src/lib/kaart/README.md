@@ -8,5 +8,5 @@ Voorbeelden en de meest up-to-date gebruiksaanwijzing kan je vinden in de AWV Co
 
 ## TODO
 
-* Locatie zoeker + zoekresultaten
+* Uitwerken locatie zoeker + zoekresultaten
 * Inzoomen op ident8/coord/...?

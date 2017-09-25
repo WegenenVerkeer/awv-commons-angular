@@ -7,6 +7,8 @@ import {KaartVectorLaagComponent} from "./kaart-vector-laag.component";
 import {KaartLayerSwitcherKnopComponent} from "./kaart-layer-switcher-knop.component";
 import {KaartTekenPolygoonLaagComponent} from "./kaart-teken-polygoon-laag.component";
 import {KaartLocatieZoekerComponent} from "./kaart-locatie-zoeker.component";
+import {KaartToonFeaturesComponent} from "./kaart-toon-features.component";
+import {KaartToonIconOpLengteBreedtegraadComponent} from "./kaart-toon-icon-op-lengte-breedtegraad.component";
 
 @NgModule({
   imports: [CommonModule],
@@ -17,7 +19,9 @@ import {KaartLocatieZoekerComponent} from "./kaart-locatie-zoeker.component";
     KaartKnoppenComponent,
     KaartLayerSwitcherKnopComponent,
     KaartTekenPolygoonLaagComponent,
-    KaartLocatieZoekerComponent
+    KaartLocatieZoekerComponent,
+    KaartToonFeaturesComponent,
+    KaartToonIconOpLengteBreedtegraadComponent
   ],
   exports: [
     KaartComponent,
@@ -26,7 +30,9 @@ import {KaartLocatieZoekerComponent} from "./kaart-locatie-zoeker.component";
     KaartKnoppenComponent,
     KaartLayerSwitcherKnopComponent,
     KaartTekenPolygoonLaagComponent,
-    KaartLocatieZoekerComponent
+    KaartLocatieZoekerComponent,
+    KaartToonFeaturesComponent,
+    KaartToonIconOpLengteBreedtegraadComponent
   ]
 })
 export class KaartModule {}
@@ -38,3 +44,5 @@ export * from "./kaart-knoppen.component";
 export * from "./kaart-layer-switcher-knop.component";
 export * from "./kaart-teken-polygoon-laag.component";
 export * from "./kaart-locatie-zoeker.component";
+export * from "./kaart-toon-features.component";
+export * from "./kaart-toon-icon-op-lengte-breedtegraad.component";

@@ -7,7 +7,7 @@
       "root": "src",
       "outDir": "out/testApp",
       "assets": [
-        "assets",
+        "testApp/assets",
         "favicon.ico"
       ],
       "index": "index.html",
