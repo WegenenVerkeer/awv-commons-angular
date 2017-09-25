@@ -9,7 +9,7 @@ import * as ol from "openlayers";
 import * as uuid from "uuid";
 import * as proj4 from "proj4";
 import LayerSwitcher from "ol3-layerswitcher/src/ol3-layerswitcher";
-import {WmsKaartLaagComponent} from "./wms-kaart-laag.component";
+import {KaartLaagComponent} from "./kaart-laag.component";
 
 export abstract class LayerConfig<T> {
   abstract laagNaam: string;
@@ -54,7 +54,7 @@ export class KaartComponent implements AfterContentInit, AfterViewChecked {
 
   @ViewChild("knoppen") knoppenElement: ElementRef;
 
-  @ContentChildren(WmsKaartLaagComponent) wmsKaartLagen: QueryList<WmsKaartLaagComponent>;
+  @ContentChildren(KaartLaagComponent) wmsKaartLagen: QueryList<KaartLaagComponent>;
 
   @Output() featuresGeselecteerd: EventEmitter<string> = new EventEmitter<string>();
 

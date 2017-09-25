@@ -3,11 +3,11 @@
 <h2>Kaart met lagen</h2>
 <div>
   <awv-kaart [height]="400" [viewOnly]="true">
-    <awv-wms-kaart-laag titel="Orthofotos (AGIV)" [wmsKaartLaagConfig]="orthoConfig"></awv-wms-kaart-laag>
-    <awv-wms-kaart-laag titel="Dienstkaart kleur" [wmsKaartLaagConfig]="dienstkaartKleurConfig"></awv-wms-kaart-laag>
-    <awv-wms-kaart-laag titel="Dienstkaart grijs" [wmsKaartLaagConfig]="dienstkaartGrijsConfig"></awv-wms-kaart-laag>
-    <awv-wms-kaart-laag titel="Ident8 labels (WDB)" [wmsKaartLaagConfig]="ident8LabelsConfig"></awv-wms-kaart-laag>
-    <awv-wms-kaart-laag titel="Referentiepunten (WDB)"
-                        [wmsKaartLaagConfig]="referentiepuntenConfig"></awv-wms-kaart-laag>
+    <awv-kaart-laag titel="Orthofotos (AGIV)" [kaartLaagConfig]="orthoConfig"></awv-kaart-laag>
+    <awv-kaart-laag titel="Dienstkaart kleur" [kaartLaagConfig]="dienstkaartKleurConfig"></awv-kaart-laag>
+    <awv-kaart-laag titel="Dienstkaart grijs" [kaartLaagConfig]="dienstkaartGrijsConfig"></awv-kaart-laag>
+    <awv-kaart-laag titel="Ident8 labels (WDB)" [kaartLaagConfig]="ident8LabelsConfig"></awv-kaart-laag>
+    <awv-kaart-laag titel="Referentiepunten (WDB)"
+                        [kaartLaagConfig]="referentiepuntenConfig"></awv-kaart-laag>
   </awv-kaart>
 </div>

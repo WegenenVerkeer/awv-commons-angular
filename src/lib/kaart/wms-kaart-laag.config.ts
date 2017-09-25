@@ -1,10 +1,10 @@
-import {Injectable} from "@angular/core";
+import {KaartLaagConfig} from "./kaart-laag.config";
 
-@Injectable()
-export class WmsKaartLaagConfig {
+export class WmsKaartLaagConfig extends KaartLaagConfig {
   urls: string[];
   layers: string;
   tiled: boolean;
   srs: string;
   version?: string;
+  type = "WMS";
 }

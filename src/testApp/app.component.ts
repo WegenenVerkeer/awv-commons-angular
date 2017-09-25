@@ -10,7 +10,8 @@ export class AppComponent {
     urls: ["http://geoservices.informatievlaanderen.be/raadpleegdiensten/omwrgbmrvl/wms"],
     layers: "Ortho",
     tiled: true,
-    srs: "EPSG:31370"
+    srs: "EPSG:31370",
+    type: "WMS"
   };
 
   dienstkaartKleurConfig: WmsKaartLaagConfig = {
@@ -21,7 +22,8 @@ export class AppComponent {
     ],
     layers: "dienstkaart-kleur",
     tiled: true,
-    srs: "EPSG:31370"
+    srs: "EPSG:31370",
+    type: "WMS"
   };
 
   dienstkaartGrijsConfig: WmsKaartLaagConfig = {
@@ -32,7 +34,8 @@ export class AppComponent {
     ],
     layers: "dienstkaart-grijs",
     tiled: true,
-    srs: "EPSG:31370"
+    srs: "EPSG:31370",
+    type: "WMS"
   };
 
   ident8LabelsConfig: WmsKaartLaagConfig = {
@@ -44,7 +47,8 @@ export class AppComponent {
     layers: "ident8",
     tiled: true,
     srs: "EPSG:31370",
-    version: "1.1.1"
+    version: "1.1.1",
+    type: "WMS"
   };
 
   referentiepuntenConfig: WmsKaartLaagConfig = {
@@ -56,6 +60,7 @@ export class AppComponent {
     layers: "referentiepunten",
     tiled: true,
     srs: "EPSG:31370",
-    version: "1.1.1"
+    version: "1.1.1",
+    type: "WMS"
   };
 }
