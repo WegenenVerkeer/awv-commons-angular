@@ -1,11 +1,15 @@
-import {AfterViewChecked, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from "@angular/core";
+import {
+  AfterContentInit,
+  AfterViewChecked, Component, ContentChildren, ElementRef, EventEmitter, Input,
+  Output, QueryList, ViewChild
+} from "@angular/core";
 import {isNullOrUndefined} from "util";
 
 import * as ol from "openlayers";
 import * as uuid from "uuid";
 import * as proj4 from "proj4";
-import {KaartConfig} from "./kaart.config";
 import LayerSwitcher from "ol3-layerswitcher/src/ol3-layerswitcher";
+import {WmsKaartLaagComponent} from "./wms-kaart-laag.component";
 
 export abstract class LayerConfig<T> {
   abstract laagNaam: string;
@@ -28,7 +32,8 @@ export interface VectorLayersMap {
 }
 
 class CenterEnZoom {
-  constructor(readonly center: [number, number], readonly zoom: number) {}
+  constructor(readonly center: [number, number], readonly zoom: number) {
+  }
 }
 
 export enum DrawType {
@@ -41,12 +46,15 @@ export enum DrawType {
   templateUrl: "./kaart.template.html",
   styleUrls: ["kaart.scss"]
 })
-export class KaartComponent implements OnInit, OnDestroy, AfterViewChecked {
+export class KaartComponent implements AfterContentInit, AfterViewChecked {
+
   @ViewChild("map") mapElement: ElementRef;
 
   @ViewChild("locatieZoeker") locatieZoekerElement: ElementRef;
 
   @ViewChild("knoppen") knoppenElement: ElementRef;
+
+  @ContentChildren(WmsKaartLaagComponent) wmsKaartLagen: QueryList<WmsKaartLaagComponent>;
 
   @Output() featuresGeselecteerd: EventEmitter<string> = new EventEmitter<string>();
 
@@ -90,8 +98,6 @@ export class KaartComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   vectorLayers: VectorLayersMap = {};
 
-  referentieLagen: ol.layer.Group;
-
   dienstkaartProjectie: ol.proj.Projection;
 
   routeringModifyInteraction: ol.interaction.Modify = null;
@@ -122,9 +128,8 @@ export class KaartComponent implements OnInit, OnDestroy, AfterViewChecked {
   private teZettenExtent: ol.geom.SimpleGeometry | [number, number, number, number] = null;
   private polygoonLayer: ol.layer.Vector;
 
-  constructor(private kaartConfig: KaartConfig) {
+  constructor() {
     this.initialiseerLambert72();
-    this.initialiseerReferentieLagen();
   }
 
   initialiseerLambert72() {
@@ -133,7 +138,7 @@ export class KaartComponent implements OnInit, OnDestroy, AfterViewChecked {
     proj4.defs(
       "EPSG:31370",
       "+proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 " +
-        "+ellps=intl +towgs84=-125.8,79.9,-100.5 +units=m +no_defs"
+      "+ellps=intl +towgs84=-125.8,79.9,-100.5 +units=m +no_defs"
     );
 
     this.dienstkaartProjectie = ol.proj.get("EPSG:31370");
@@ -254,13 +259,11 @@ export class KaartComponent implements OnInit, OnDestroy, AfterViewChecked {
     }
   }
 
-  maakVectorLaagAan(
-    naam: string,
-    style: ol.style.Style | ol.style.Style[] | ol.StyleFunction,
-    group: ol.layer.Group = this.vectorLayersGroup,
-    visible = true,
-    selectable = true
-  ): VectorLayer {
+  maakVectorLaagAan(naam: string,
+                    style: ol.style.Style | ol.style.Style[] | ol.StyleFunction,
+                    group: ol.layer.Group = this.vectorLayersGroup,
+                    visible = true,
+                    selectable = true): VectorLayer {
     if (this.vectorLayers[naam] !== undefined) {
       return this.vectorLayers[naam];
     } else {
@@ -278,7 +281,7 @@ export class KaartComponent implements OnInit, OnDestroy, AfterViewChecked {
       vectorLayer.selection = new ol.Collection<ol.Feature>();
       const selecteerFeatureInteraction = new ol.interaction.Select({
         features: vectorLayer.selection,
-        layers: function(layer) {
+        layers: function (layer) {
           return layer.get("selectable") === true;
         },
         condition: ol.events.condition.singleClick
@@ -339,7 +342,7 @@ export class KaartComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   private activeerSelectInteraction(active: boolean) {
     this.map.then(map => {
-      map.getInteractions().forEach(function(interaction) {
+      map.getInteractions().forEach(function (interaction) {
         if (interaction instanceof ol.interaction.Select) {
           interaction.setActive(active);
         }
@@ -365,13 +368,11 @@ export class KaartComponent implements OnInit, OnDestroy, AfterViewChecked {
     });
   }
 
-  ngOnInit() {
+  ngAfterContentInit() {
     // -- Als we dit niet doen, kloppen de coordinaten van de interacties niet (door de layouting),
     // --   dan moet je naast features klikken.
     setTimeout(() => this.maakKaart(), 500);
   }
-
-  ngOnDestroy(): void {}
 
   private getCurrentMapDimensions() {
     return this.mapElement.nativeElement.getBoundingClientRect();
@@ -403,95 +404,18 @@ export class KaartComponent implements OnInit, OnDestroy, AfterViewChecked {
     }
   }
 
-  private initialiseerReferentieLagen() {
-    this.referentieLagen = new ol.layer.Group(<olx.layer.GroupOptions>{
-      title: "Referentielagen",
-      layers: [
-        new ol.layer.Tile(<olx.layer.TileOptions>{
-          title: "Orthofoto's (AGIV)",
-          type: "base",
-          visible: false,
-          extent: [18000.0, 152999.75, 280144.0, 415143.75],
-          source: new ol.source.TileWMS({
-            projection: null,
-            urls: this.kaartConfig.orthofotosWmsUrls,
-            params: {
-              LAYERS: "Ortho",
-              TILED: true,
-              SRS: "EPSG:31370"
-            }
-          })
-        }),
-        new ol.layer.Tile(<olx.layer.TileOptions>{
-          title: "Dienstkaart kleur",
-          type: "base",
-          visible: false,
-          extent: [18000.0, 152999.75, 280144.0, 415143.75],
-          source: new ol.source.TileWMS({
-            projection: null,
-            urls: this.kaartConfig.dienstkaartKleurWmsUrls,
-            params: {
-              LAYERS: "dienstkaart-kleur",
-              TILED: true,
-              SRS: "EPSG:31370"
-            }
-          })
-        }),
-        new ol.layer.Tile(<olx.layer.TileOptions>{
-          title: "Dienstkaart grijs",
-          type: "base",
-          visible: true,
-          extent: [18000.0, 152999.75, 280144.0, 415143.75],
-          source: new ol.source.TileWMS({
-            projection: null,
-            urls: this.kaartConfig.dienstkaartGrijsWmsUrls,
-            params: {
-              LAYERS: "dienstkaart-grijs",
-              TILED: true,
-              SRS: "EPSG:31370"
-            }
-          })
-        }),
-        new ol.layer.Tile(<olx.layer.TileOptions>{
-          title: "Ident8 labels (WDB)",
-          visible: false,
-          extent: [18000.0, 152999.75, 280144.0, 415143.75],
-          source: new ol.source.TileWMS({
-            projection: null,
-            urls: this.kaartConfig.ident8LabelsWdbWmsUrls,
-            params: {
-              LAYERS: "ident8",
-              TILED: true,
-              SRS: "EPSG:31370",
-              VERSION: "1.1.1"
-            }
-          })
-        }),
-        new ol.layer.Tile(<olx.layer.TileOptions>{
-          title: "Referentiepunten (WDB)",
-          visible: false,
-          extent: [18000.0, 152999.75, 280144.0, 415143.75],
-          source: new ol.source.TileWMS({
-            projection: null,
-            urls: this.kaartConfig.referentiepuntenWdbWmsUrls,
-            params: {
-              LAYERS: "referentiepunten",
-              TILED: true,
-              SRS: "EPSG:31370",
-              VERSION: "1.1.1"
-            }
-          })
-        })
-      ]
-    });
-  }
-
   maakKaart() {
     // ---- Maak de kaart aan
     const map = new ol.Map(<any>{
       controls: this.getControls(),
       interactions: this.getInteractions(),
-      layers: [this.referentieLagen, this.vectorLayersGroup],
+      layers: [
+        new ol.layer.Group(<olx.layer.GroupOptions>{
+          title: "Referentielagen",
+          layers: this.wmsKaartLagen.map(kaartLaag => kaartLaag.toLayer())
+        }),
+        this.vectorLayersGroup
+      ],
       pixelRatio: 1, // dit moet op 1 staan anders zal OL3 512x512 tiles ophalen op retina displays en die zitten niet in onze geowebcache
       target: this.mapElementId,
       logo: false,
@@ -548,7 +472,7 @@ export class KaartComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   setScrollToZoom(active: boolean): void {
     this.map.then(map => {
-      map.getInteractions().forEach(function(interaction) {
+      map.getInteractions().forEach(function (interaction) {
         if (interaction instanceof ol.interaction.MouseWheelZoom) {
           interaction.setActive(active);
         }
