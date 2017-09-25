@@ -9,6 +9,7 @@ import "rxjs/add/operator/map";
 import "rxjs/add/operator/mergeAll";
 import "rxjs/add/observable/fromPromise";
 import "rxjs/add/operator/toPromise";
+import "rxjs/add/operator/catch";
 
 const googleApiKey = "AIzaSyApbXMl5DGL60g17JU6MazMxNcUGooey7I";
 const googleUrl = `https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&libraries=places&language=nl&callback=__onGoogleLoaded`;
