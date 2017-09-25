@@ -1,13 +1,34 @@
 <h1>AWV Commons</h1>
 
-<h2>Kaart met lagen</h2>
+<h2>Kaart</h2>
+
+<h3>Met controls</h3>
+
 <div>
-  <awv-kaart [height]="400" [viewOnly]="true">
-    <awv-kaart-laag titel="Orthofotos (AGIV)" [kaartLaagConfig]="orthoConfig"></awv-kaart-laag>
-    <awv-kaart-laag titel="Dienstkaart kleur" [kaartLaagConfig]="dienstkaartKleurConfig"></awv-kaart-laag>
-    <awv-kaart-laag titel="Dienstkaart grijs" [kaartLaagConfig]="dienstkaartGrijsConfig"></awv-kaart-laag>
-    <awv-kaart-laag titel="Ident8 labels (WDB)" [kaartLaagConfig]="ident8LabelsConfig"></awv-kaart-laag>
-    <awv-kaart-laag titel="Referentiepunten (WDB)"
-                        [kaartLaagConfig]="referentiepuntenConfig"></awv-kaart-laag>
+  <awv-kaart>
+    <awv-kaart-wms-laag titel="Orthofotos (AGIV)"
+                        [wmsUrls]="agivWmsUrls"
+                        wmsUrlLayers="Ortho">
+    </awv-kaart-wms-laag>
+    <awv-kaart-wms-laag titel="Dienstkaart kleur"
+                        [wmsUrls]="wdbWmsUrls"
+                        wmsUrlLayers="dienstkaart-kleur">
+    </awv-kaart-wms-laag>
+    <awv-kaart-wms-laag titel="Dienstkaart grijs"
+                        [wmsUrls]="wdbWmsUrls"
+                        wmsUrlLayers="dienstkaart-grijs">
+    </awv-kaart-wms-laag>
+    <awv-kaart-wms-laag titel="Ident8 labels (WDB)"
+                        [wmsUrls]="wdbWmsUrls"
+                        wmsUrlLayers="ident8"
+                        wmsVersion="1.1.1">
+    </awv-kaart-wms-laag>
+    <awv-kaart-wms-laag titel="Referentiepunten (WDB)"
+                        [wmsUrls]="wdbWmsUrls"
+                        wmsUrlLayers="referentiepunten"
+                        wmsVersion="1.1.1">
+    </awv-kaart-wms-laag>
+    <!--<awv-kaart-vector-laag titel="Vector test" [config]="vectorConfig"></awv-kaart-vector-laag>-->
+    <awv-kaart-knoppen></awv-kaart-knoppen>
   </awv-kaart>
 </div>
