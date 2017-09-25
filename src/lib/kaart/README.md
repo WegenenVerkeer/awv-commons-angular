@@ -13,6 +13,5 @@ Bouw de kaart op:
 ## TODO
 
 * Locatie zoeker + zoekresultaten
-* LayerSwitcher
 * ...
 * Inzoomen op ident8/coord/...?
