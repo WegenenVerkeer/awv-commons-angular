@@ -2,6 +2,17 @@
 
 <h2>Kaart</h2>
 
+<h3>Zonder controls, enkel dienstkaart in kleur</h3>
+
+<awv-kaart>
+
+  <awv-kaart-wms-laag titel="Dienstkaart kleur"
+                      [wmsUrls]="wdbWmsUrls"
+                      wmsUrlLayers="dienstkaart-kleur">
+  </awv-kaart-wms-laag>
+
+</awv-kaart>
+
 <h3>Met controls</h3>
 
 <div>
