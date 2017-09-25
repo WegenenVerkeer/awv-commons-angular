@@ -5,26 +5,42 @@
 <h3>Zonder controls, enkel dienstkaart in kleur, met pin</h3>
 
 <awv-kaart>
-
   <awv-kaart-wms-laag titel="Dienstkaart kleur"
                       [wmsUrls]="wdbWmsUrls"
                       wmsUrlLayers="dienstkaart-kleur">
-    <!-- Wenduine -->
-    <awv-kaart-toon-icon-op-lengte-breedtegraad
-      [lengtegraad]="3.0655695"
-      [breedtegraad]="51.2976439"
-      [pinStyle]="pinIcon">
-    </awv-kaart-toon-icon-op-lengte-breedtegraad>
-    <!-- Wenduine -->
-    <awv-kaart-toon-icon-op-lengte-breedtegraad
-      [lengtegraad]="4.7927698"
-      [breedtegraad]="51.0303125"
-      [pinStyle]="pinIcon">
-    </awv-kaart-toon-icon-op-lengte-breedtegraad>
   </awv-kaart-wms-laag>
 
+  <!-- Wenduine -->
+  <awv-kaart-toon-icon-op-lengte-breedtegraad
+    [lengtegraad]="3.0655695"
+    [breedtegraad]="51.2976439"
+    [pinStyle]="pinIcon">
+  </awv-kaart-toon-icon-op-lengte-breedtegraad>
+
+  <!-- Begijnendijk -->
+  <awv-kaart-toon-icon-op-lengte-breedtegraad
+    [lengtegraad]="4.7927698"
+    [breedtegraad]="51.0303125"
+    [pinStyle]="pinIcon">
+  </awv-kaart-toon-icon-op-lengte-breedtegraad>
 </awv-kaart>
 
+<h3>Ingezoomd (TODO fix)</h3>
+
+<awv-kaart>
+  <awv-kaart-wms-laag titel="Dienstkaart kleur"
+                      [wmsUrls]="wdbWmsUrls"
+                      wmsUrlLayers="dienstkaart-kleur">
+  </awv-kaart-wms-laag>
+
+  <!-- Begijnendijk -->
+  <awv-kaart-toon-icon-op-lengte-breedtegraad
+    [lengtegraad]="4.7927698"
+    [breedtegraad]="51.0303125"
+    [pinStyle]="pinIcon"
+    [zoom]="true">
+  </awv-kaart-toon-icon-op-lengte-breedtegraad>
+</awv-kaart>
 
 <h3>Met polygoon laag</h3>
 

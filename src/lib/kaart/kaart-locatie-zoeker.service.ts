@@ -1,15 +1,15 @@
 import {Injectable} from "@angular/core";
 import {Http, URLSearchParams, Response, QueryEncoder} from "@angular/http"; // TODO port naar nieuwe httpclient
 import {Observable} from "rxjs/Observable";
-
-import * as ol from "openlayers";
-import {} from "googlemaps";
 import "rxjs/add/observable/of";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/mergeAll";
 import "rxjs/add/observable/fromPromise";
 import "rxjs/add/operator/toPromise";
 import "rxjs/add/operator/catch";
+
+import * as ol from "openlayers";
+import {} from "googlemaps";
 
 const googleApiKey = "AIzaSyApbXMl5DGL60g17JU6MazMxNcUGooey7I";
 const googleUrl = `https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&libraries=places&language=nl&callback=__onGoogleLoaded`;

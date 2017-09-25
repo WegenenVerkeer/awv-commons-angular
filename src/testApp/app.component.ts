@@ -33,7 +33,7 @@ export class AppComponent {
         color: "#fff",
         width: 2
       }),
-      text: "Foo"
+      text: "Zis is a pin"
     })
   });
 }

@@ -1,8 +1,7 @@
-import {AfterContentInit, AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild} from "@angular/core";
+import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild} from "@angular/core";
 
 import * as ol from "openlayers";
 import * as proj4 from "proj4";
-import "rxjs/add/operator/take";
 
 @Component({
   selector: "awv-kaart",
@@ -18,7 +17,7 @@ export class KaartComponent implements OnInit, AfterViewInit {
   @Input() initialZoom = 2;
   @Input() minZoom = 2;
   @Input() maxZoom = 13;
-  @Input() centerCoordinates: Array<number> = [130000, 184000];
+  @Input() centerCoordinates: number[] = [130000, 184000];
   @Input() width = 800;
   @Input() height = 400;
   @Input() projectie = this.getDienstkaartProjectie();
@@ -66,7 +65,7 @@ export class KaartComponent implements OnInit, AfterViewInit {
     return dienstkaartProjectie;
   }
 
-  zoomTo(extent: ol.geom.SimpleGeometry | [number, number, number, number]): void {
+  zoomTo(extent: ol.geom.SimpleGeometry | ol.Extent): void {
     this.map.getView().fit(extent, {size: this.map.getSize()});
   }
 }

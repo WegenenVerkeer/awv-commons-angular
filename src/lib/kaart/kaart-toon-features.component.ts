@@ -1,8 +1,8 @@
 import {Component, Input, OnDestroy, OnInit} from "@angular/core";
 import {KaartComponent} from "./kaart.component";
+import {KaartVectorLaagComponent} from "./kaart-vector-laag.component";
 
 import * as ol from "openlayers";
-import {KaartVectorLaagComponent} from "./kaart-vector-laag.component";
 
 @Component({
   selector: "awv-kaart-toon-features",

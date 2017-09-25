@@ -9,6 +9,7 @@ import {KaartTekenPolygoonLaagComponent} from "./kaart-teken-polygoon-laag.compo
 import {KaartLocatieZoekerComponent} from "./kaart-locatie-zoeker.component";
 import {KaartToonFeaturesComponent} from "./kaart-toon-features.component";
 import {KaartToonIconOpLengteBreedtegraadComponent} from "./kaart-toon-icon-op-lengte-breedtegraad.component";
+import {KaartZoomExtentComponent} from "./kaart-zoom-extent.component";
 
 @NgModule({
   imports: [CommonModule],

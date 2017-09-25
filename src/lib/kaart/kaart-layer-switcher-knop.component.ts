@@ -1,6 +1,6 @@
 import {Component, Input, OnDestroy, OnInit} from "@angular/core";
-
 import {KaartComponent} from "./kaart.component";
+
 import LayerSwitcher from "ol3-layerswitcher/src/ol3-layerswitcher";
 
 @Component({
