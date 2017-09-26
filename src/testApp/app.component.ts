@@ -16,6 +16,9 @@ export class AppComponent {
     "https://wms3.apps.mow.vlaanderen.be/geowebcache/service/wms"
   ];
 
+  polygoonEvents: string[] = [];
+  wktFormatter = new ol.format.WKT();
+
   pinIcon = new ol.style.Style({
     image: new ol.style.Icon({
       anchor: [0.5, 1],
@@ -36,4 +39,8 @@ export class AppComponent {
       text: "Zis is a pin"
     })
   });
+
+  polygoonGetekend(feature: ol.Feature) {
+    this.polygoonEvents.push(`Drawn: ${this.wktFormatter.writeGeometry(feature.getGeometry())}`);
+  }
 }

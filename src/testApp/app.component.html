@@ -4,7 +4,7 @@
 
 <h3>Zonder controls, enkel dienstkaart in kleur, met pin</h3>
 
-<awv-kaart>
+<awv-kaart [width]="400" [height]="400">
   <awv-kaart-wms-laag titel="Dienstkaart kleur"
                       [wmsUrls]="wdbWmsUrls"
                       wmsUrlLayers="dienstkaart-kleur">
@@ -37,8 +37,7 @@
   <awv-kaart-toon-icon-op-lengte-breedtegraad
     [lengtegraad]="4.7927698"
     [breedtegraad]="51.0303125"
-    [pinStyle]="pinIcon"
-    [zoom]="true">
+    [pinStyle]="pinIcon">
   </awv-kaart-toon-icon-op-lengte-breedtegraad>
 </awv-kaart>
 
@@ -50,8 +49,12 @@
                         [wmsUrls]="agivWmsUrls"
                         wmsUrlLayers="Ortho">
     </awv-kaart-wms-laag>
-    <awv-kaart-teken-polygoon-laag></awv-kaart-teken-polygoon-laag>
+    <awv-kaart-teken-polygoon-laag (polygonDrawn)="polygoonGetekend($event)"></awv-kaart-teken-polygoon-laag>
   </awv-kaart>
+
+  <pre *ngFor="let event of polygoonEvents">
+    {{ event }}
+  </pre>
 </div>
 
 <h3>Met controls</h3>

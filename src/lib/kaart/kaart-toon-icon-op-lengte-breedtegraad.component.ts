@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit, Output} from "@angular/core";
+import {Component, Input, OnDestroy, OnInit} from "@angular/core";
 import {KaartComponent} from "./kaart.component";
 import {KaartToonFeaturesComponent} from "./kaart-toon-features.component";
 
@@ -29,7 +29,7 @@ export class KaartToonIconOpLengteBreedtegraadComponent extends KaartToonFeature
   ngOnDestroy(): void {
     super.ngOnDestroy();
 
-    this.features.splice(this.features.indexOf(this.latLongFeature));
+    this.features.remove(this.latLongFeature);
   }
 
   toFeature(): ol.Feature {

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit} from "@angular/core";
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from "@angular/core";
 import {KaartComponent} from "./kaart.component";
 import {KaartVectorLaagComponent} from "./kaart-vector-laag.component";
 
@@ -11,8 +11,7 @@ import * as ol from "openlayers";
 export class KaartTekenPolygoonLaagComponent extends KaartVectorLaagComponent implements OnInit, OnDestroy {
   @Input() tekenPolygoonInteraction: ol.interaction.Interaction;
   @Input() feature: ol.Feature;
-
-  polygonDrawn: EventEmitter<ol.Feature> = new EventEmitter<ol.Feature>();
+  @Output() polygonDrawn = new EventEmitter<ol.Feature>();
 
   constructor(protected kaart: KaartComponent) {
     super(kaart);
