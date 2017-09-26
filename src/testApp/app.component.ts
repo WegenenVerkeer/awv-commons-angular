@@ -3,8 +3,6 @@ import * as ol from "openlayers";
 import {GoogleLocatieZoekerService} from "../lib/google-locatie-zoeker/google-locatie-zoeker.service";
 import "rxjs/add/operator/mergeMap";
 
-declare function require(string): string; // TODO verbeter webpack fu
-
 @Component({
   selector: "awv-commons-test-app",
   templateUrl: "./app.component.html"
@@ -26,9 +24,9 @@ export class AppComponent {
       anchor: [0.5, 1],
       anchorXUnits: "fraction",
       anchorYUnits: "fraction",
-      scale: 0.4,
+      scale: 1,
       opacity: 1,
-      src: require("./assets/pin.png")
+      src: "./material-design-icons/maps/svg/production/ic_place_48px.svg"
     }),
     text: new ol.style.Text({
       font: "12px Calibri, sans-serif",

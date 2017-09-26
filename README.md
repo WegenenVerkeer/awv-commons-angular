@@ -20,7 +20,11 @@ Deze component library is voorzien van een test Angular app.
 
     npm start
     
-In `src\testApp` kan je je module toevoegen en op de pagina plaatsen om zo door te testen. Dit laat je ook toe om protractors te schrijven.
+In `src\testApp` kan je je module toevoegen en op de pagina plaatsen om zo door te testen. 
+
+Dit laat je ook toe om protractors te schrijven.
+
+Tot slot vormt de source code van deze pagina de gebruiksaanwijzing van de componenten.
 
 ### Code style
 
