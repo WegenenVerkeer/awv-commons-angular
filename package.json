@@ -21,7 +21,7 @@
     "rollup-es2015": "rollup out/tsc/lib-es2015/awv-commons-angular.js -o dist/awv-commons-angular.js -f es",
     "postrollup-es2015": "replace 'openlayers/index' 'openlayers' dist/awv-commons-angular.js",
     "rollup-es5": "rollup out/tsc/lib-es5/awv-commons-angular.js -o dist/awv-commons-angular.es5.js -f es",
-    "postrollup-es5": "replace 'openlayers/index' 'openlayers' dist/awv-commons-angular.js",
+    "postrollup-es5": "replace 'openlayers/index' 'openlayers' dist/awv-commons-angular.es5.js",
     "prebuild": "npm run clean; npm install; npm prune; npm run inline-resources; npm run lint",
     "build-es2015": "npm run compile-es2015; npm run rollup-es2015",
     "build-es5": "npm run compile-es5; npm run rollup-es5",
