@@ -8,7 +8,6 @@ import * as ol from "openlayers";
   template: "&nbsp;"
 })
 export class KaartVectorLaagComponent implements OnInit, OnDestroy {
-
   vectorLaag: ol.layer.Vector;
 
   @Input() titel = "";

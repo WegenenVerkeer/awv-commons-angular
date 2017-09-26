@@ -44,8 +44,7 @@ export class AppComponent {
   locatieQuery: string;
   features: ol.Collection<ol.Feature> = new ol.Collection();
 
-  constructor(private googleLocatieZoekerService: GoogleLocatieZoekerService) {
-  }
+  constructor(private googleLocatieZoekerService: GoogleLocatieZoekerService) {}
 
   polygoonGetekend(feature: ol.Feature) {
     this.polygoonEvents.push(this.geoJsonFormatter.writeFeature(feature));
