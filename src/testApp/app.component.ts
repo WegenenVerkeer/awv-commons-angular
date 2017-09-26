@@ -1,5 +1,7 @@
 import {Component} from "@angular/core";
 import * as ol from "openlayers";
+import {GoogleLocatieZoekerService} from "../lib/google-locatie-zoeker/google-locatie-zoeker.service";
+import "rxjs/add/operator/mergeMap";
 
 declare function require(string): string; // TODO verbeter webpack fu
 
@@ -17,7 +19,7 @@ export class AppComponent {
   ];
 
   polygoonEvents: string[] = [];
-  wktFormatter = new ol.format.WKT();
+  geoJsonFormatter = new ol.format.GeoJSON();
 
   pinIcon = new ol.style.Style({
     image: new ol.style.Icon({
@@ -40,7 +42,21 @@ export class AppComponent {
     })
   });
 
+  locatieQuery: string;
+  features: ol.Collection<ol.Feature> = new ol.Collection();
+
+  constructor(private googleLocatieZoekerService: GoogleLocatieZoekerService) {}
+
   polygoonGetekend(feature: ol.Feature) {
-    this.polygoonEvents.push(`Drawn: ${this.wktFormatter.writeGeometry(feature.getGeometry())}`);
+    this.polygoonEvents.push(this.geoJsonFormatter.writeFeature(feature));
+  }
+
+  zoekLocaties(locatieQuery: String) {
+    this.googleLocatieZoekerService
+      .zoek(locatieQuery)
+      .flatMap(res => res.resultaten)
+      .mergeMap(zoekresultaat => zoekresultaat.geometry)
+      .map(geometry => new ol.Feature(geometry))
+      .subscribe(feature => this.features.push(feature));
   }
 }

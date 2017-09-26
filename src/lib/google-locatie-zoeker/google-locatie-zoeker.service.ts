@@ -10,10 +10,10 @@ import "rxjs/add/operator/catch";
 
 import * as ol from "openlayers";
 import {} from "googlemaps";
+import {GoogleLocatieZoekerConfig} from "./google-locatie-zoeker.config";
 
 const googleApiKey = "AIzaSyApbXMl5DGL60g17JU6MazMxNcUGooey7I";
 const googleUrl = `https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&libraries=places&language=nl&callback=__onGoogleLoaded`;
-const locatieZoekerUrl = "/locatiezoeker";
 
 // Deze URL encoder gaat alles encoden. De standaard encoder encode volgende characters NIET:
 // ! $ \' ( ) * + , ; A 9 - . _ ~ ? /     (zie https://tools.ietf.org/html/rfc3986)
@@ -91,10 +91,11 @@ export class ZoekResultaten {
 }
 
 @Injectable()
-export class KaartLocatieZoekerService {
+export class GoogleLocatieZoekerService {
   private _cache: Promise<GoogleServices> = null;
+  locatieZoekerUrl = this.googleLocatieZoekerConfig.url;
 
-  constructor(private http: Http) {}
+  constructor(private http: Http, private googleLocatieZoekerConfig: GoogleLocatieZoekerConfig) {}
 
   private init(): Promise<GoogleServices> {
     if (this._cache) {
@@ -121,7 +122,7 @@ export class KaartLocatieZoekerService {
     params.set("legacy", "false");
 
     return this.http
-      .get(locatieZoekerUrl + "/zoek", {search: params})
+      .get(this.locatieZoekerUrl + "/zoek", {search: params})
       .map(this.parseResult, this)
       .mergeAll()
       .catch(this.handleError);
@@ -427,7 +428,7 @@ export class KaartLocatieZoekerService {
       gemeenteNaam = gemeenteNaam || resultaat.name;
 
       const url =
-        `${locatieZoekerUrl}/gemeente?naam=${gemeenteNaam}&latLng=${resultaat.geometry.location.lat()},${resultaat.geometry.location.lng()}` +
+        `${this.locatieZoekerUrl}/gemeente?naam=${gemeenteNaam}&latLng=${resultaat.geometry.location.lat()},${resultaat.geometry.location.lng()}` +
         `&isGemeente=${isGemeente}&isDeelgemeente=${isDeelgemeente}`;
 
       return this.http
