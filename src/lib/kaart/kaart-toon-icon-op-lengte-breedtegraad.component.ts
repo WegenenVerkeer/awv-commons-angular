@@ -14,7 +14,6 @@ export class KaartToonIconOpLengteBreedtegraadComponent extends KaartToonFeature
   @Input() lengtegraad: number;
   @Input() breedtegraad: number;
   @Input() pinStyle: ol.style.Style;
-  @Input() zoom = false;
 
   constructor(protected kaart: KaartComponent) {
     super(kaart);
@@ -25,10 +24,6 @@ export class KaartToonIconOpLengteBreedtegraadComponent extends KaartToonFeature
     this.features.push(this.toFeature());
 
     super.ngOnInit();
-
-    if (this.zoom) {
-      this.kaart.zoomTo(this.latLongFeature.getGeometry().getExtent());
-    }
   }
 
   ngOnDestroy(): void {
