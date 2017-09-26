@@ -2,6 +2,7 @@ import {Component} from "@angular/core";
 import * as ol from "openlayers";
 import {GoogleLocatieZoekerService} from "../lib/google-locatie-zoeker/google-locatie-zoeker.service";
 import "rxjs/add/operator/mergeMap";
+import "rxjs/add/operator/map";
 
 @Component({
   selector: "awv-commons-test-app",
@@ -29,7 +30,7 @@ export class AppComponent {
       src: "./material-design-icons/maps/svg/production/ic_place_48px.svg"
     }),
     text: new ol.style.Text({
-      font: "12px Calibri, sans-serif",
+      font: "12px 'Helvetica Neue', sans-serif",
       fill: new ol.style.Fill({color: "#000"}),
       offsetY: -60,
       stroke: new ol.style.Stroke({
@@ -43,7 +44,8 @@ export class AppComponent {
   locatieQuery: string;
   features: ol.Collection<ol.Feature> = new ol.Collection();
 
-  constructor(private googleLocatieZoekerService: GoogleLocatieZoekerService) {}
+  constructor(private googleLocatieZoekerService: GoogleLocatieZoekerService) {
+  }
 
   polygoonGetekend(feature: ol.Feature) {
     this.polygoonEvents.push(this.geoJsonFormatter.writeFeature(feature));
@@ -53,7 +55,7 @@ export class AppComponent {
     this.googleLocatieZoekerService
       .zoek(locatieQuery)
       .flatMap(res => res.resultaten)
-      .mergeMap(zoekresultaat => zoekresultaat.geometry)
+      .map(zoekresultaat => zoekresultaat.geometry)
       .map(geometry => new ol.Feature(geometry))
       .subscribe(feature => this.features.push(feature));
   }

@@ -20,11 +20,25 @@ Deze component library is voorzien van een test Angular app.
 
     npm start
     
+Deze is dan te bereiken via http://localhost:4220/
+
 In `src\testApp` kan je je module toevoegen en op de pagina plaatsen om zo door te testen. 
 
 Dit laat je ook toe om protractors te schrijven.
 
 Tot slot vormt de source code van deze pagina de gebruiksaanwijzing van de componenten.
+
+### Locatie zoeker testen
+
+Dit doet CORS requests, zet chrome open zonder web security om dit te testen.
+
+macos:
+
+    open -a Google\ Chrome --args --disable-web-security --user-data-dir 
+    
+*nix:
+
+    chromium-browser --disable-web-security --user-data-dir
 
 ### Code style
 

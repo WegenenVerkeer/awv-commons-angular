@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from "@angular/core";
+import {Component, Input, OnChanges, OnDestroy, OnInit} from "@angular/core";
 import {KaartComponent} from "./kaart.component";
 
 import * as ol from "openlayers";
@@ -8,6 +8,7 @@ import * as ol from "openlayers";
   template: "&nbsp;"
 })
 export class KaartVectorLaagComponent implements OnInit, OnDestroy {
+
   vectorLaag: ol.layer.Vector;
 
   @Input() titel = "";

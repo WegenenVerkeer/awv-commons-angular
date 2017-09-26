@@ -14,7 +14,8 @@ import {HttpModule} from "@angular/http";
     KaartModule,
     FormsModule,
     GoogleLocatieZoekerModule.forRoot({
-      url: "https://apps.mow.vlaanderen.be/locatiezoeker"
+      // ssh tunnel naar apigateway van dev - ssh -L 5100:apigateway.dev.awv.internal:80 management.apps.mow.vlaanderen.be
+      url: "http://apigateway:5100/locatiezoeker"
     }),
     HttpModule
   ],

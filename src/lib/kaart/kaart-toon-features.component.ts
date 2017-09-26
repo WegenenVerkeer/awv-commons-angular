@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from "@angular/core";
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from "@angular/core";
 import {KaartComponent} from "./kaart.component";
 import {KaartVectorLaagComponent} from "./kaart-vector-laag.component";
 
@@ -8,7 +8,7 @@ import * as ol from "openlayers";
   selector: "awv-kaart-toon-features",
   template: "&nbsp;"
 })
-export class KaartToonFeaturesComponent extends KaartVectorLaagComponent implements OnInit, OnDestroy {
+export class KaartToonFeaturesComponent extends KaartVectorLaagComponent implements OnInit, OnDestroy, OnChanges {
   @Input() features = new ol.Collection<ol.Feature>();
   @Output() featureClick: EventEmitter<ol.Feature> = new EventEmitter<ol.Feature>();
 
@@ -20,7 +20,15 @@ export class KaartToonFeaturesComponent extends KaartVectorLaagComponent impleme
 
   ngOnInit(): void {
     super.ngOnInit();
+    this.renderFeatures();
+  }
 
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+    this.clear();
+  }
+
+  private renderFeatures() {
     this.vectorLaag.getSource().addFeatures(this.features.getArray());
 
     this.selecteerFeatureInteraction = new ol.interaction.Select({
@@ -38,10 +46,19 @@ export class KaartToonFeaturesComponent extends KaartVectorLaagComponent impleme
     this.kaart.map.addInteraction(this.selecteerFeatureInteraction);
   }
 
-  ngOnDestroy(): void {
-    super.ngOnDestroy();
-
+  private clear() {
     this.features.forEach(feature => this.vectorLaag.getSource().removeFeature(feature));
     this.kaart.map.removeInteraction(this.selecteerFeatureInteraction);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (!this.vectorLaag) {
+      return;
+    }
+
+    if ("features" in changes) {
+      this.clear();
+      this.renderFeatures();
+    }
   }
 }

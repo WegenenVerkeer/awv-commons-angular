@@ -11,7 +11,7 @@
     "preinstall": "npm config set package-lock false",
     "ng": "ng",
     "prestart": "npm install; npm prune",
-    "start": "ng serve --port 4220",
+    "start": "ng serve --port 4220 --host 0.0.0.0",
     "preclean": "npm install rimraf mkdirp",
     "clean": "rimraf out; rimraf dist; mkdirp out",
     "preinline-resources": "rsync -a src/lib/ out/inline-resources",

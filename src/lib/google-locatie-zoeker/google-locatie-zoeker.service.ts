@@ -296,7 +296,6 @@ export class GoogleLocatieZoekerService {
 
   handleError(response: Response | any): Observable<ZoekResultaten> {
     let error: string;
-    console.log(response);
     switch (response.status) {
       case 404:
         error = "Locatiezoeker service werd niet gevonden";
