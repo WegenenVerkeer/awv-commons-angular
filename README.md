@@ -10,6 +10,10 @@ Er is nog geen support voor een dergelijke packaging in Angular-CLI. We baseren 
 
 ## Development
 
+### Nieuwe module toevoegen
+
+TODO
+
 ### Nieuwe component toevoegen
 
 TODO
@@ -30,15 +34,21 @@ Tot slot vormt de source code van deze pagina de gebruiksaanwijzing van de compo
 
 ### Locatie zoeker testen
 
-Dit doet CORS requests, zet chrome open zonder web security om dit te testen.
+Dit doet CORS requests via een SSH tunnel:
 
-macos:
+* Leg een SSH tunnel naar de apigateway van dev:
 
-    open -a Google\ Chrome --args --disable-web-security --user-data-dir 
+        ssh -L 5100:apigateway.dev.awv.internal:80 management.apps.mow.vlaanderen.be
+                          
+* Zet chrome open zonder web security om dit te testen.
+
+    macos:
     
-*nix:
-
-    chromium-browser --disable-web-security --user-data-dir
+        open -a Google\ Chrome --args --disable-web-security --user-data-dir 
+        
+    *nix:
+    
+        chromium-browser --disable-web-security --user-data-dir
 
 ### Code style
 

@@ -2,54 +2,42 @@
 
 <h2>Kaart</h2>
 
-<h3>Zonder controls, enkel dienstkaart in kleur, met pin</h3>
-
-<awv-kaart [width]="400" [height]="400">
-  <awv-kaart-wms-laag titel="Dienstkaart kleur"
-                      [wmsUrls]="wdbWmsUrls"
-                      wmsUrlLayers="dienstkaart-kleur">
-  </awv-kaart-wms-laag>
-
-  <!-- Wenduine -->
-  <awv-kaart-toon-icon-op-lengte-breedtegraad
-    [lengtegraad]="3.0655695"
-    [breedtegraad]="51.2976439"
-    [pinStyle]="pinIcon">
-  </awv-kaart-toon-icon-op-lengte-breedtegraad>
-
-  <!-- Begijnendijk -->
-  <awv-kaart-toon-icon-op-lengte-breedtegraad
-    [lengtegraad]="4.7927698"
-    [breedtegraad]="51.0303125"
-    [pinStyle]="pinIcon">
-  </awv-kaart-toon-icon-op-lengte-breedtegraad>
-</awv-kaart>
-
-<h3>Ingezoomd (TODO fix)</h3>
-
-<awv-kaart>
-  <awv-kaart-wms-laag titel="Dienstkaart kleur"
-                      [wmsUrls]="wdbWmsUrls"
-                      wmsUrlLayers="dienstkaart-kleur">
-  </awv-kaart-wms-laag>
-
-  <!-- Begijnendijk -->
-  <awv-kaart-toon-icon-op-lengte-breedtegraad
-    [lengtegraad]="4.7927698"
-    [breedtegraad]="51.0303125"
-    [pinStyle]="pinIcon">
-  </awv-kaart-toon-icon-op-lengte-breedtegraad>
-</awv-kaart>
-
-<h3>Met polygoon laag</h3>
+<h3>Zonder controls, enkel dienstkaart in kleur,</h3>
 
 <div>
-  <awv-kaart>
-    <awv-kaart-wms-laag titel="Orthofotos (AGIV)"
-                        [wmsUrls]="agivWmsUrls"
-                        wmsUrlLayers="Ortho">
-    </awv-kaart-wms-laag>
-    <awv-kaart-teken-polygoon-laag (polygonDrawn)="polygoonGetekend($event)"></awv-kaart-teken-polygoon-laag>
+  <awv-kaart [breedte]="800">
+    <awv-kaart-wdb-laag [titel]="'Dienstkaart kleur'" [laag]="'dienstkaart-kleur'"></awv-kaart-wdb-laag>
+    <awv-kaart-schaal></awv-kaart-schaal>
+    <awv-kaart-knop-volledig-scherm></awv-kaart-knop-volledig-scherm>
+    <awv-kaart-knop-zoom-slider></awv-kaart-knop-zoom-slider>
+  </awv-kaart>
+</div>
+
+<h3>Ingezoomd + features</h3>
+
+<div>
+  <awv-kaart [breedte]="800" [zoom]="7" [middelpunt]="[installatie.x, installatie.y]">
+    <awv-kaart-wdb-laag [titel]="'Dienstkaart grijs'" [laag]="'dienstkaart-grijs'"></awv-kaart-wdb-laag>
+    <awv-kaart-toon-features [features]="installaties" (featureGeselecteerd)="installatieGeselecteed($event)"></awv-kaart-toon-features>
+    <awv-kaart-schaal></awv-kaart-schaal>
+    <awv-kaart-knop-volledig-scherm></awv-kaart-knop-volledig-scherm>
+    <awv-kaart-knop-zoom-slider></awv-kaart-knop-zoom-slider>
+  </awv-kaart>
+
+  <pre *ngFor="let event of installatieGeselecteerdEvents">
+    Event gegooid: {{ event | json }}
+  </pre>
+</div>
+
+<h3>Orhto laag + teken polygoon</h3>
+
+<div>
+  <awv-kaart [breedte]="800">
+    <awv-kaart-ortho-laag [titel]="'Ortho'"></awv-kaart-ortho-laag>
+    <awv-kaart-teken-polygoon-laag (polygonGetekend)="polygoonGetekend($event)"></awv-kaart-teken-polygoon-laag>
+    <awv-kaart-schaal></awv-kaart-schaal>
+    <awv-kaart-knop-volledig-scherm></awv-kaart-knop-volledig-scherm>
+    <awv-kaart-knop-zoom-slider></awv-kaart-knop-zoom-slider>
   </awv-kaart>
 
   <pre *ngFor="let event of polygoonEvents">
@@ -57,39 +45,32 @@
   </pre>
 </div>
 
-<h3>Met controls</h3>
-
-<p>TODO styling</p>
+<h3>Dienstkaart (meerdere lagen), volledige breedte + alle controls + locatiezoeker</h3>
 
 <div>
-  <input [(ngModel)]="locatieQuery" type="text" />
+  <input [(ngModel)]="locatieQuery" type="text"/>
   <button (click)="zoekLocaties(locatieQuery)">Zoek</button>
-
+  <p><strong>Opgelet!</strong> Dit voert een CORS request uit via een SSH tunnel:</p>
+  <ul>
+    <li>
+      <p>Leg een SSH tunnel naar de apigateway van dev:</p>
+      <pre>ssh -L 5100:apigateway.dev.awv.internal:80 management.apps.mow.vlaanderen.be</pre>
+    </li>
+    <li>
+      <p>Zet chrome open zonder web security om dit te testen.</p>
+      <p>macos:</p>
+      <pre>open -a Google\ Chrome --args --disable-web-security --user-data-dir</pre>
+      <p>*nix:</p>
+      <pre>chromium-browser --disable-web-security --user-data-dir</pre>
+    </li>
+  </ul>
   <awv-kaart>
-    <awv-kaart-wms-laag titel="Orthofotos (AGIV)"
-                        [wmsUrls]="agivWmsUrls"
-                        wmsUrlLayers="Ortho">
-    </awv-kaart-wms-laag>
-    <awv-kaart-wms-laag titel="Dienstkaart kleur"
-                        [wmsUrls]="wdbWmsUrls"
-                        wmsUrlLayers="dienstkaart-kleur">
-    </awv-kaart-wms-laag>
-    <awv-kaart-wms-laag titel="Dienstkaart grijs"
-                        [wmsUrls]="wdbWmsUrls"
-                        wmsUrlLayers="dienstkaart-grijs">
-    </awv-kaart-wms-laag>
-    <awv-kaart-wms-laag titel="Ident8 labels (WDB)"
-                        [wmsUrls]="wdbWmsUrls"
-                        wmsUrlLayers="ident8"
-                        wmsVersion="1.1.1">
-    </awv-kaart-wms-laag>
-    <awv-kaart-wms-laag titel="Referentiepunten (WDB)"
-                        [wmsUrls]="wdbWmsUrls"
-                        wmsUrlLayers="referentiepunten"
-                        wmsVersion="1.1.1">
-    </awv-kaart-wms-laag>
-    <awv-kaart-toon-features [features]="features"></awv-kaart-toon-features>
-    <awv-kaart-knoppen></awv-kaart-knoppen>
-    <awv-kaart-layer-switcher-knop></awv-kaart-layer-switcher-knop>
+    <awv-kaart-wdb-laag [titel]="'Dienstkaart kleur'" [laag]="'dienstkaart-kleur'"></awv-kaart-wdb-laag>
+    <awv-kaart-wdb-laag [titel]="'Dienstkaart grijs'" [laag]="'dienstkaart-grijs'"></awv-kaart-wdb-laag>
+    <awv-kaart-toon-features [features]="zoekresultaten"></awv-kaart-toon-features>
+    <awv-kaart-schaal></awv-kaart-schaal>
+    <awv-kaart-knop-laag-kiezer></awv-kaart-knop-laag-kiezer>
+    <awv-kaart-knop-volledig-scherm></awv-kaart-knop-volledig-scherm>
+    <awv-kaart-knop-zoom-slider></awv-kaart-knop-zoom-slider>
   </awv-kaart>
 </div>

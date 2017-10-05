@@ -1,28 +1,32 @@
-import {Component, Input, OnDestroy, OnInit} from "@angular/core";
+import {Component, Input, OnDestroy, OnInit, ViewEncapsulation} from "@angular/core";
 import {KaartComponent} from "./kaart.component";
 
 import * as ol from "openlayers";
 
 @Component({
   selector: "awv-kaart-wms-laag",
-  template: "&nbsp;"
+  template: "<ng-content></ng-content>",
+  encapsulation: ViewEncapsulation.None
 })
 export class KaartWmsLaagComponent implements OnInit, OnDestroy {
-  wmsLaag: ol.layer.Tile;
-
   @Input() titel = "";
   @Input() zichtbaar = true;
-  @Input() wmsProjection?: ol.proj.Projection;
-  @Input() wmsUrls: string[];
-  @Input() wmsUrlLayers: string;
-  @Input() wmsUrlTiled = true;
-  @Input() wmsUrlSrs = "EPSG:31370";
-  @Input() wmsVersion?: string;
+  @Input() urls: string[];
+  @Input() laag: string;
+  @Input() tiles = true;
+  @Input() srs = "EPSG:31370";
+  @Input() versie?: string;
   @Input() extent: ol.Extent = [18000.0, 152999.75, 280144.0, 415143.75];
+
+  wmsLaag: ol.layer.Tile;
 
   constructor(protected kaart: KaartComponent) {}
 
   ngOnInit(): void {
+    if (!this.laag) {
+      throw new Error("Geen laag gedefinieerd");
+    }
+
     this.wmsLaag = this.maakWmsLayer();
     this.kaart.map.addLayer(this.wmsLaag);
   }
@@ -38,12 +42,12 @@ export class KaartWmsLaagComponent implements OnInit, OnDestroy {
       extent: this.extent,
       source: new ol.source.TileWMS({
         projection: null,
-        urls: this.wmsUrls,
+        urls: this.urls,
         params: {
-          LAYERS: this.wmsUrlLayers,
-          TILED: this.wmsUrlTiled,
-          SRS: this.wmsUrlSrs,
-          version: this.wmsVersion
+          LAYERS: this.laag,
+          TILED: this.tiles,
+          SRS: this.srs,
+          version: this.versie
         }
       })
     });

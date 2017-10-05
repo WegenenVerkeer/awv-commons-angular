@@ -9,45 +9,52 @@ import "rxjs/add/operator/map";
   templateUrl: "./app.component.html"
 })
 export class AppComponent {
-  agivWmsUrls = ["http://geoservices.informatievlaanderen.be/raadpleegdiensten/omwrgbmrvl/wms"];
-
-  wdbWmsUrls = [
-    "https://wms1.apps.mow.vlaanderen.be/geowebcache/service/wms",
-    "https://wms2.apps.mow.vlaanderen.be/geowebcache/service/wms",
-    "https://wms3.apps.mow.vlaanderen.be/geowebcache/service/wms"
-  ];
-
   polygoonEvents: string[] = [];
+  installatieGeselecteerdEvents: string[] = [];
   geoJsonFormatter = new ol.format.GeoJSON();
 
-  pinIcon = new ol.style.Style({
-    image: new ol.style.Icon({
-      anchor: [0.5, 1],
-      anchorXUnits: "fraction",
-      anchorYUnits: "fraction",
-      scale: 1,
-      opacity: 1,
-      src: "./material-design-icons/maps/svg/production/ic_place_48px.svg"
-    }),
-    text: new ol.style.Text({
-      font: "12px 'Helvetica Neue', sans-serif",
-      fill: new ol.style.Fill({color: "#000"}),
-      offsetY: -60,
-      stroke: new ol.style.Stroke({
-        color: "#fff",
-        width: 2
-      }),
-      text: "Zis is a pin"
-    })
-  });
-
   locatieQuery: string;
-  features: ol.Collection<ol.Feature> = new ol.Collection();
+  installaties: ol.Collection<ol.Feature> = new ol.Collection();
+  zoekresultaten: ol.Collection<ol.Feature> = new ol.Collection();
 
-  constructor(private googleLocatieZoekerService: GoogleLocatieZoekerService) {}
+  installatie = {
+    x: 180055.62,
+    y: 190922.71
+  };
+
+  constructor(private googleLocatieZoekerService: GoogleLocatieZoekerService) {
+    const pinIcon = new ol.style.Style({
+      image: new ol.style.Icon({
+        anchor: [0.5, 1],
+        anchorXUnits: "fraction",
+        anchorYUnits: "fraction",
+        scale: 1,
+        opacity: 1,
+        src: "./material-design-icons/maps/svg/production/ic_place_48px.svg"
+      }),
+      text: new ol.style.Text({
+        font: "12px 'Helvetica Neue', sans-serif",
+        fill: new ol.style.Fill({color: "#000"}),
+        offsetY: -60,
+        stroke: new ol.style.Stroke({
+          color: "#fff",
+          width: 2
+        }),
+        text: "Zis is a pin"
+      })
+    });
+
+    const feature = new ol.Feature(new ol.geom.Point([this.installatie.x, this.installatie.y]));
+    feature.setStyle(pinIcon);
+    this.installaties.push(feature);
+  }
 
   polygoonGetekend(feature: ol.Feature) {
     this.polygoonEvents.push(this.geoJsonFormatter.writeFeature(feature));
+  }
+
+  installatieGeselecteed(feature: ol.Feature) {
+    this.installatieGeselecteerdEvents.push(this.geoJsonFormatter.writeFeature(feature));
   }
 
   zoekLocaties(locatieQuery: String) {
@@ -56,6 +63,6 @@ export class AppComponent {
       .flatMap(res => res.resultaten)
       .map(zoekresultaat => zoekresultaat.geometry)
       .map(geometry => new ol.Feature(geometry))
-      .subscribe(feature => this.features.push(feature));
+      .subscribe(feature => this.zoekresultaten.push(feature));
   }
 }

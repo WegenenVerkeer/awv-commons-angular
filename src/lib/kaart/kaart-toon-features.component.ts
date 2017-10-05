@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from "@angular/core";
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewEncapsulation} from "@angular/core";
 import {KaartComponent} from "./kaart.component";
 import {KaartVectorLaagComponent} from "./kaart-vector-laag.component";
 
@@ -6,11 +6,12 @@ import * as ol from "openlayers";
 
 @Component({
   selector: "awv-kaart-toon-features",
-  template: "&nbsp;"
+  template: "<ng-content></ng-content>",
+  encapsulation: ViewEncapsulation.None
 })
 export class KaartToonFeaturesComponent extends KaartVectorLaagComponent implements OnInit, OnDestroy, OnChanges {
   @Input() features = new ol.Collection<ol.Feature>();
-  @Output() featureClick: EventEmitter<ol.Feature> = new EventEmitter<ol.Feature>();
+  @Output() featureGeselecteerd: EventEmitter<ol.Feature> = new EventEmitter<ol.Feature>();
 
   selecteerFeatureInteraction: ol.interaction.Select;
 
@@ -39,7 +40,7 @@ export class KaartToonFeaturesComponent extends KaartVectorLaagComponent impleme
 
     this.selecteerFeatureInteraction.on("select", event => {
       if (event.selected.length > 0) {
-        this.featureClick.emit(event.selected[0]);
+        this.featureGeselecteerd.emit(event.selected[0]);
       }
     });
 

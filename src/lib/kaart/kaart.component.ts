@@ -1,29 +1,33 @@
-import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild} from "@angular/core";
+import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild, ViewEncapsulation} from "@angular/core";
+import {KaartConfig} from "./kaart.config";
 
 import * as ol from "openlayers";
 import * as proj4 from "proj4";
 
 @Component({
   selector: "awv-kaart",
-  templateUrl: "./kaart.component.html"
+  templateUrl: "./kaart.component.html",
+  styleUrls: ["../../../node_modules/openlayers/css/ol.css", "./kaart.component.scss"],
+  encapsulation: ViewEncapsulation.Native
 })
 export class KaartComponent implements OnInit, AfterViewInit {
   @ViewChild("map") mapElement: ElementRef;
-  @ViewChild("knoppen") knoppenElement: ElementRef;
 
   map: ol.Map;
 
-  @Input() initialZoom = 2;
+  @Input() zoom = 2;
   @Input() minZoom = 2;
   @Input() maxZoom = 13;
-  @Input() centerCoordinates: number[] = [130000, 184000];
-  @Input() width = 800;
-  @Input() height = 400;
+  @Input() middelpunt: number[] = [130000, 184000];
+  @Input() breedte; // neem standaard de hele breedte in
+  @Input() hoogte = 400;
   @Input() projectie = this.getDienstkaartProjectie();
+
+  constructor(@Input() public config: KaartConfig) {}
 
   ngOnInit() {
     this.map = this.maakKaart();
-    this.map.setSize([this.width, this.height]);
+    this.map.setSize([this.breedte, this.hoogte]);
   }
 
   ngAfterViewInit(): void {
@@ -40,10 +44,10 @@ export class KaartComponent implements OnInit, AfterViewInit {
       logo: false,
       view: new ol.View({
         projection: this.projectie,
-        center: [this.centerCoordinates[0], this.centerCoordinates[1]],
+        center: [this.middelpunt[0], this.middelpunt[1]],
         minZoom: this.minZoom,
         maxZoom: this.maxZoom,
-        zoom: this.initialZoom
+        zoom: this.zoom
       })
     });
   }

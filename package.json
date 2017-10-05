@@ -107,7 +107,9 @@
     "tslint-config-prettier": "1.5.0",
     "tslint-defocus": "2.0.3",
     "tslint-plugin-prettier": "1.1.0",
-    "typescript": "2.5.2"
+    "typescript": "2.5.2",
+    "node-sass": "4.5.3",
+    "glob": "7.1.1"
   },
   "publishConfig": {
     "registry": "https://collab.mow.vlaanderen.be/artifacts/repository/npm-internal/"

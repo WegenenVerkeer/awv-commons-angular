@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from "@angular/core";
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewEncapsulation} from "@angular/core";
 import {KaartComponent} from "./kaart.component";
 import {KaartVectorLaagComponent} from "./kaart-vector-laag.component";
 
@@ -6,12 +6,14 @@ import * as ol from "openlayers";
 
 @Component({
   selector: "awv-kaart-teken-polygoon-laag",
-  template: "&nbsp;"
+  template: "<ng-content></ng-content>",
+  encapsulation: ViewEncapsulation.None
 })
 export class KaartTekenPolygoonLaagComponent extends KaartVectorLaagComponent implements OnInit, OnDestroy {
-  @Input() tekenPolygoonInteraction: ol.interaction.Interaction;
   @Input() feature: ol.Feature;
-  @Output() polygonDrawn = new EventEmitter<ol.Feature>();
+  @Output() polygonGetekend = new EventEmitter<ol.Feature>();
+
+  tekenPolygoonInteraction: ol.interaction.Interaction;
 
   constructor(protected kaart: KaartComponent) {
     super(kaart);
@@ -29,7 +31,7 @@ export class KaartTekenPolygoonLaagComponent extends KaartVectorLaagComponent im
     });
 
     this.tekenPolygoonInteraction.on("drawend", drawevent => {
-      this.polygonDrawn.emit(drawevent.feature);
+      this.polygonGetekend.emit(drawevent.feature);
     });
 
     this.kaart.map.addInteraction(this.tekenPolygoonInteraction);

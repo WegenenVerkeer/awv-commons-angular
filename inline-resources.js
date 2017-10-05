@@ -7,7 +7,7 @@
 const fs = require('fs');
 const path = require('path');
 const glob = require('glob');
-
+const sass = require('node-sass');
 
 /**
  * Simple Promiseify function that takes a Node API and return a version that supports promises.
@@ -48,7 +48,6 @@ function inlineResources(projectPath) {
     return readFile(fullFilePath, 'utf-8')
       .then(content => inlineResourcesFromString(content, url => {
         // Resolve the template url.
-        console.log(fullFilePath);
         return path.join(path.dirname(fullFilePath), url);
       }))
       .then(content => writeFile(fullFilePath, content))
@@ -105,8 +104,13 @@ function inlineStyle(content, urlResolver) {
     return 'styles: ['
       + urls.map(styleUrl => {
         const styleFile = urlResolver(styleUrl);
-        const styleContent = fs.readFileSync(styleFile, 'utf-8');
-        // TODO run sass
+        // const styleFile = path.resolve(process.cwd(), urlResolver(styleUrl));
+        // console.log(styleFile);
+        let styleContent = fs.readFileSync(styleFile, 'utf-8');
+        // console.log(styleContent);
+        if (styleContent) {
+          styleContent = sass.renderSync({data: styleContent}).css.toString('utf8');
+        }
         const shortenedStyle = styleContent
           .replace(/([\n\r]\s*)+/gm, ' ')
           .replace(/"/g, '\\"');

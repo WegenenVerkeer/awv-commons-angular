@@ -11,7 +11,7 @@ import {HttpModule} from "@angular/http";
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    KaartModule,
+    KaartModule.withDefaults(),
     FormsModule,
     GoogleLocatieZoekerModule.forRoot({
       // ssh tunnel naar apigateway van dev - ssh -L 5100:apigateway.dev.awv.internal:80 management.apps.mow.vlaanderen.be
