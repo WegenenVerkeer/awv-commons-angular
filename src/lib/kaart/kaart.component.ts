@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, Input, NgZone, OnInit, ViewChild, ViewEncapsulation} from "@angular/core";
+import {AfterViewChecked, AfterViewInit, Component, ElementRef, Input, NgZone, OnInit, ViewChild, ViewEncapsulation} from "@angular/core";
 import {KaartConfig} from "./kaart.config";
 
 import * as ol from "openlayers";
@@ -10,7 +10,7 @@ import * as proj4 from "proj4";
   styleUrls: ["../../../node_modules/openlayers/css/ol.css", "./kaart.component.scss"],
   encapsulation: ViewEncapsulation.Native
 })
-export class KaartComponent implements OnInit, AfterViewInit {
+export class KaartComponent implements OnInit, AfterViewChecked {
   @ViewChild("map") mapElement: ElementRef;
 
   map: ol.Map;
@@ -28,13 +28,12 @@ export class KaartComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.zone.runOutsideAngular(() => {
       this.map = this.maakKaart();
-      this.map.setSize([this.breedte, this.hoogte]);
     });
   }
 
-  ngAfterViewInit(): void {
+  ngAfterViewChecked(): void {
     this.zone.runOutsideAngular(() => {
-      this.map.updateSize();
+      this.map.setSize([this.breedte, this.hoogte]);
     });
   }
 
