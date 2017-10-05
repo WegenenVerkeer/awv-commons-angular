@@ -106,6 +106,7 @@ function inlineStyle(content, urlResolver) {
       + urls.map(styleUrl => {
         const styleFile = urlResolver(styleUrl);
         const styleContent = fs.readFileSync(styleFile, 'utf-8');
+        // TODO run sass
         const shortenedStyle = styleContent
           .replace(/([\n\r]\s*)+/gm, ' ')
           .replace(/"/g, '\\"');

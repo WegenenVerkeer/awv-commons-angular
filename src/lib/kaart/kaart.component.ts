@@ -5,8 +5,7 @@ import * as proj4 from "proj4";
 
 @Component({
   selector: "awv-kaart",
-  templateUrl: "./kaart.component.html",
-  styleUrls: ["./kaart.component.scss"]
+  templateUrl: "./kaart.component.html"
 })
 export class KaartComponent implements OnInit, AfterViewInit {
   @ViewChild("map") mapElement: ElementRef;
