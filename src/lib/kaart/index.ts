@@ -12,6 +12,7 @@ import {KaartSchaalComponent} from "./kaart-schaal.component";
 import {KaartConfig} from "./kaart.config";
 import {KaartWdbLaagComponent} from "./kaart-wdb-laag.component";
 import {KaartOrthoLaagComponent} from "./kaart-ortho-laag.component";
+import {CoordinatenService} from "./coordinaten.service";
 
 const components: any[] = [
   KaartComponent,
@@ -30,7 +31,8 @@ const components: any[] = [
 @NgModule({
   imports: [CommonModule],
   declarations: [components],
-  exports: [components]
+  exports: [components],
+  providers: [CoordinatenService]
 })
 export class KaartModule {
   static forRoot(config: KaartConfig): ModuleWithProviders {
@@ -66,3 +68,4 @@ export * from "./kaart-toon-features.component";
 export * from "./kaart-vector-laag.component";
 export * from "./kaart-wdb-laag.component";
 export * from "./kaart-wms-laag.component";
+export * from "./coordinaten.service";
