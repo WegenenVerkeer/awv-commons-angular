@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild, ViewEncapsulation} from "@angular/core";
+import {AfterViewInit, Component, ElementRef, Input, NgZone, OnInit, ViewChild, ViewEncapsulation} from "@angular/core";
 import {KaartConfig} from "./kaart.config";
 
 import * as ol from "openlayers";
@@ -23,15 +23,19 @@ export class KaartComponent implements OnInit, AfterViewInit {
   @Input() hoogte = 400;
   @Input() projectie = this.getDienstkaartProjectie();
 
-  constructor(@Input() public config: KaartConfig) {}
+  constructor(@Input() public config: KaartConfig, private zone: NgZone) {}
 
   ngOnInit() {
-    this.map = this.maakKaart();
-    this.map.setSize([this.breedte, this.hoogte]);
+    this.zone.runOutsideAngular(() => {
+      this.map = this.maakKaart();
+      this.map.setSize([this.breedte, this.hoogte]);
+    });
   }
 
   ngAfterViewInit(): void {
-    this.map.updateSize();
+    this.zone.runOutsideAngular(() => {
+      this.map.updateSize();
+    });
   }
 
   maakKaart(): ol.Map {

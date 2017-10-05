@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit, ViewEncapsulation} from "@angular/core";
+import {Component, Input, NgZone, OnDestroy, OnInit, ViewEncapsulation} from "@angular/core";
 import {KaartComponent} from "./kaart.component";
 
 import * as ol from "openlayers";
@@ -20,19 +20,22 @@ export class KaartWmsLaagComponent implements OnInit, OnDestroy {
 
   wmsLaag: ol.layer.Tile;
 
-  constructor(protected kaart: KaartComponent) {}
+  constructor(protected kaart: KaartComponent, protected zone: NgZone) {}
 
   ngOnInit(): void {
     if (!this.laag) {
       throw new Error("Geen laag gedefinieerd");
     }
-
-    this.wmsLaag = this.maakWmsLayer();
-    this.kaart.map.addLayer(this.wmsLaag);
+    this.zone.runOutsideAngular(() => {
+      this.wmsLaag = this.maakWmsLayer();
+      this.kaart.map.addLayer(this.wmsLaag);
+    });
   }
 
   ngOnDestroy(): void {
-    this.kaart.map.removeLayer(this.wmsLaag);
+    this.zone.runOutsideAngular(() => {
+      this.kaart.map.removeLayer(this.wmsLaag);
+    });
   }
 
   maakWmsLayer(): ol.layer.Tile {

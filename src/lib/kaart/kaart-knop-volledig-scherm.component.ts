@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewEncapsulation} from "@angular/core";
+import {Component, NgZone, OnDestroy, OnInit, ViewEncapsulation} from "@angular/core";
 import {KaartComponent} from "./kaart.component";
 
 import * as ol from "openlayers";
@@ -12,17 +12,21 @@ import * as ol from "openlayers";
 export class KaartKnopVolledigSchermComponent implements OnInit, OnDestroy {
   fullScreen: ol.control.FullScreen;
 
-  constructor(protected kaart: KaartComponent) {}
+  constructor(protected kaart: KaartComponent, private zone: NgZone) {}
 
   ngOnInit(): void {
-    this.fullScreen = new ol.control.FullScreen({
-      className: "full-screen-control-left",
-      source: this.kaart.mapElement.nativeElement.parentElement
+    this.zone.runOutsideAngular(() => {
+      this.fullScreen = new ol.control.FullScreen({
+        className: "full-screen-control-left",
+        source: this.kaart.mapElement.nativeElement.parentElement
+      });
+      this.kaart.map.addControl(this.fullScreen);
     });
-    this.kaart.map.addControl(this.fullScreen);
   }
 
   ngOnDestroy(): void {
-    this.kaart.map.removeControl(this.fullScreen);
+    this.zone.runOutsideAngular(() => {
+      this.kaart.map.removeControl(this.fullScreen);
+    });
   }
 }

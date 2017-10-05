@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewEncapsulation} from "@angular/core";
+import {Component, EventEmitter, Input, NgZone, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewEncapsulation} from "@angular/core";
 import {KaartComponent} from "./kaart.component";
 import {KaartVectorLaagComponent} from "./kaart-vector-laag.component";
 
@@ -15,18 +15,35 @@ export class KaartToonFeaturesComponent extends KaartVectorLaagComponent impleme
 
   selecteerFeatureInteraction: ol.interaction.Select;
 
-  constructor(protected kaart: KaartComponent) {
-    super(kaart);
+  constructor(protected kaart: KaartComponent, protected zone: NgZone) {
+    super(kaart, zone);
   }
 
   ngOnInit(): void {
     super.ngOnInit();
-    this.renderFeatures();
+    this.zone.runOutsideAngular(() => {
+      this.renderFeatures();
+    });
   }
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
-    this.clear();
+    this.zone.runOutsideAngular(() => {
+      this.clear();
+    });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (!this.vectorLaag) {
+      return;
+    }
+
+    this.zone.runOutsideAngular(() => {
+      if ("features" in changes) {
+        this.clear();
+        this.renderFeatures();
+      }
+    });
   }
 
   private renderFeatures() {
@@ -40,7 +57,9 @@ export class KaartToonFeaturesComponent extends KaartVectorLaagComponent impleme
 
     this.selecteerFeatureInteraction.on("select", event => {
       if (event.selected.length > 0) {
-        this.featureGeselecteerd.emit(event.selected[0]);
+        this.zone.run(() => {
+          this.featureGeselecteerd.emit(event.selected[0]);
+        });
       }
     });
 
@@ -50,16 +69,5 @@ export class KaartToonFeaturesComponent extends KaartVectorLaagComponent impleme
   private clear() {
     this.features.forEach(feature => this.vectorLaag.getSource().removeFeature(feature));
     this.kaart.map.removeInteraction(this.selecteerFeatureInteraction);
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (!this.vectorLaag) {
-      return;
-    }
-
-    if ("features" in changes) {
-      this.clear();
-      this.renderFeatures();
-    }
   }
 }

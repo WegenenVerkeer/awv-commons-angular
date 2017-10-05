@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit, ViewEncapsulation} from "@angular/core";
+import {Component, Input, NgZone, OnDestroy, OnInit, ViewEncapsulation} from "@angular/core";
 import {KaartComponent} from "./kaart.component";
 
 import * as ol from "openlayers";
@@ -17,15 +17,19 @@ export class KaartVectorLaagComponent implements OnInit, OnDestroy {
 
   vectorLaag: ol.layer.Vector;
 
-  constructor(protected kaart: KaartComponent) {}
+  constructor(protected kaart: KaartComponent, protected zone: NgZone) {}
 
   ngOnInit(): void {
-    this.vectorLaag = this.maakVectorLayer();
-    this.kaart.map.addLayer(this.vectorLaag);
+    this.zone.runOutsideAngular(() => {
+      this.vectorLaag = this.maakVectorLayer();
+      this.kaart.map.addLayer(this.vectorLaag);
+    });
   }
 
   ngOnDestroy(): void {
-    this.kaart.map.removeLayer(this.vectorLaag);
+    this.zone.runOutsideAngular(() => {
+      this.kaart.map.removeLayer(this.vectorLaag);
+    });
   }
 
   maakVectorLayer(): ol.layer.Vector {

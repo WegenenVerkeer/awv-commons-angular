@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
+import {Component, NgZone, OnDestroy, OnInit} from "@angular/core";
 
 import * as ol from "openlayers";
 import {KaartComponent} from "./kaart.component";
@@ -10,14 +10,18 @@ import {KaartComponent} from "./kaart.component";
 export class KaartSchaalComponent implements OnInit, OnDestroy {
   scaleLine: ol.control.ScaleLine;
 
-  constructor(protected kaart: KaartComponent) {}
+  constructor(protected kaart: KaartComponent, protected zone: NgZone) {}
 
   ngOnInit(): void {
-    this.scaleLine = new ol.control.ScaleLine();
-    this.kaart.map.addControl(this.scaleLine);
+    this.zone.runOutsideAngular(() => {
+      this.scaleLine = new ol.control.ScaleLine();
+      this.kaart.map.addControl(this.scaleLine);
+    });
   }
 
   ngOnDestroy(): void {
-    this.kaart.map.removeControl(this.scaleLine);
+    this.zone.runOutsideAngular(() => {
+      this.kaart.map.removeControl(this.scaleLine);
+    });
   }
 }
