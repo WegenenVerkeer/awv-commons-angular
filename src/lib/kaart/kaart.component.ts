@@ -28,12 +28,13 @@ export class KaartComponent implements OnInit, AfterViewChecked {
   ngOnInit() {
     this.zone.runOutsideAngular(() => {
       this.map = this.maakKaart();
+      this.map.setSize([this.breedte, this.hoogte]);
     });
   }
 
   ngAfterViewChecked(): void {
     this.zone.runOutsideAngular(() => {
-      this.map.setSize([this.breedte, this.hoogte]);
+      this.map.updateSize();
     });
   }
 
