@@ -30,7 +30,7 @@
 
 <div>
   <awv-kaart [breedte]="800" [zoom]="7"
-             [middelpunt]="coordinatenService.transformWgs84(installatieWgs84[1],installatieWgs84[0])">
+             [middelpunt]="coordinatenService.transformWgs84(installatieWgs84[0],installatieWgs84[1])">
     <awv-kaart-wdb-laag [titel]="'Dienstkaart kleur'" [laag]="'dienstkaart-kleur'"></awv-kaart-wdb-laag>
     <awv-kaart-schaal></awv-kaart-schaal>
   </awv-kaart>

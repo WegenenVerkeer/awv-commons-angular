@@ -26,7 +26,7 @@ export class CoordinatenService {
    * @returns Lambert 72 coordinaat
    */
   transformWgs84(latitude: number, longitude: number): [number, number] {
-    return this.transform(longitude, latitude, "EPSG:4326");
+    return this.transform(latitude, longitude, "EPSG:4326");
   }
 
   /**

@@ -27,7 +27,7 @@ describe("CoordinatenService", () => {
   describe("#transformWgs84", () => {
     describe("Happy", () => {
       it("transformeert coordinaten", () => {
-        const result = coordinatenService.transformWgs84(51.0257317, 4.7970553);
+        const result = coordinatenService.transformWgs84(4.7970553, 51.0257317);
         expect(result).toEqual([180048.06920228814, 190702.69932892825]);
       });
     });
