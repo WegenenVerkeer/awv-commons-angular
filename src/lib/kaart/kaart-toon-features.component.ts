@@ -67,10 +67,6 @@ export class KaartToonFeaturesComponent extends KaartVectorLaagComponent impleme
   }
 
   private clear() {
-    if (!this.features) {
-      return; // geen features gedefinieerd, er valt niks te clearen
-    }
-
     this.features.forEach(feature => this.vectorLaag.getSource().removeFeature(feature));
     this.kaart.map.removeInteraction(this.selecteerFeatureInteraction);
   }
