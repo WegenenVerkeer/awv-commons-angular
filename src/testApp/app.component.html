@@ -32,9 +32,7 @@
   <p>Vul zelf lengtegraad en breedtegraad in.</p>
   <p><label>Lengtegraad: </label><input [(ngModel)]="lat" type="number"/></p>
   <p><label>Breedtegraad: </label><input [(ngModel)]="long" type="number"/></p>
-  <awv-kaart [breedte]="800" [zoom]="7"
-             [middelpunt]="[lat, long]"
-             [middelpuntSrs]="'EPSG:4326'">
+  <awv-kaart [breedte]="800" [zoom]="7" [middelpunt]="coordinatenService.transformWgs84(lat, long)">
     <awv-kaart-wdb-laag [titel]="'Dienstkaart kleur'" [laag]="'dienstkaart-kleur'"></awv-kaart-wdb-laag>
     <awv-kaart-schaal></awv-kaart-schaal>
   </awv-kaart>
