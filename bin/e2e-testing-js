@@ -10,7 +10,7 @@ rm -rf reports/e2e;mkdir -p reports/e2e/screenshots
 rm -rf $BASEDIR/temp || true; mkdir -p $BASEDIR/temp
 npm run e2e || EXIT_STATUS=$?
 
-if [ $EXIT_STATUS != 0 ]; then
+if [ $EXIT_STATUS!=0 ]; then
   echo
   echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
   echo "Acceptance stage: Er zijn gefaalde testen"

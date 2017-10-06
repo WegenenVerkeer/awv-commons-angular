@@ -31,8 +31,10 @@ const config = {
       package: 'protractor-console-plugin',
       failOnWarning: true,
       failOnError: true,
-      exclude: [
-        'Failed to load resource: the server responded with a status'
+      exclude: [ // protractor kan niet aan WMS server van WDB
+        /.*wms1.apps.mow.vlaanderen.be.*/,
+        /.*wms2.apps.mow.vlaanderen.be.*/,
+        /.*wms3.apps.mow.vlaanderen.be.*/
       ]
     },
     {
