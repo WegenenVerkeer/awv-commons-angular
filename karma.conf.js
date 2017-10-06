@@ -12,8 +12,7 @@ module.exports = function (config) {
       require('karma-mocha-reporter')
     ],
     files: [
-      {pattern: './src/test.ts', watched: false},
-      {pattern: './node_modules/@angular/material/prebuilt-themes/indigo-pink.css', included: true, watched: false}
+      {pattern: './src/test.ts', watched: false}
     ],
     preprocessors: {
       './src/test.ts': ['@angular/cli']

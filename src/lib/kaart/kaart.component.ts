@@ -2,7 +2,7 @@ import {Component, ElementRef, Input, NgZone, OnChanges, OnInit, SimpleChanges, 
 import {KaartConfig} from "./kaart.config";
 
 import * as ol from "openlayers";
-import * as proj4 from "proj4";
+import proj4 from "proj4";
 import {CoordinatenService} from "./coordinaten.service";
 
 @Component({
@@ -65,16 +65,10 @@ export class KaartComponent implements OnInit, OnChanges {
   }
 
   /**
-   * OpenLayers heeft enkel support voor "EPSG:4326" en "EPSG:3857", configureer hier lambert72
+   * Configureer Lambert72
    */
   getDienstkaartProjectie(): ol.proj.Projection {
-    ol.proj.setProj4(proj4);
-    proj4.defs(
-      "EPSG:31370",
-      "+proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 " +
-        "+ellps=intl +towgs84=-125.8,79.9,-100.5 +units=m +no_defs"
-    );
-
+    CoordinatenService.configureerLambert72();
     const dienstkaartProjectie: ol.proj.Projection = ol.proj.get("EPSG:31370");
     dienstkaartProjectie.setExtent([18000.0, 152999.75, 280144.0, 415143.75]); // zet de extent op die van de dienstkaart
     return dienstkaartProjectie;
