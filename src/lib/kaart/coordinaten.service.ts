@@ -26,18 +26,21 @@ export class CoordinatenService {
    * @returns Lambert 72 coordinaat
    */
   transformWgs84(latitude: number, longitude: number): [number, number] {
-    return this.transform(latitude, longitude, "EPSG:4326");
+    return this.transform([latitude, longitude], "EPSG:4326");
   }
 
   /**
    * Zet coordinaat om van de gegeven EPSG code naar Lambert 72
    *
-   * @param x x
-   * @param y y
+   * @param coordinate
    * @param source SRS
    * @returns Lambert 72 coordinaat
    */
-  transform(x: number, y: number, source: string): [number, number] {
-    return ol.proj.transform([Number(x), Number(y)], source, "EPSG:31370");
+  transform(coordinate: [number, number], source: string): [number, number] {
+    if (source === "EPSG:31370") {
+      return coordinate;
+    }
+
+    return ol.proj.transform(coordinate, source, "EPSG:31370");
   }
 }

@@ -20,28 +20,35 @@ export class KaartComponent implements OnInit, OnChanges {
   @Input() minZoom = 2;
   @Input() maxZoom = 13;
   @Input() middelpunt: ol.Coordinate = [130000, 184000];
+  @Input() middelpuntSrs = "EPSG:31370";
   @Input() breedte; // neem standaard de hele breedte in
   @Input() hoogte = 400;
   @Input() projectie = this.getDienstkaartProjectie();
 
-  constructor(@Input() public config: KaartConfig, private zone: NgZone) {}
+  constructor(@Input() public config: KaartConfig, private zone: NgZone, private coordinatenService: CoordinatenService) {}
 
   ngOnInit() {
     this.zone.runOutsideAngular(() => {
       this.map = this.maakKaart();
       this.map.setSize([this.breedte, this.hoogte]);
+      this.centreer();
       this.refresh();
     });
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (this.map && "middelpunt" in changes) {
-      this.map.getView().setCenter(changes.middelpunt.currentValue);
-    }
-
     this.zone.runOutsideAngular(() => {
+      if ("middelpunt" in changes || "middelpuntSrs" in changes) {
+        this.centreer();
+      }
       this.refresh();
     });
+  }
+
+  centreer() {
+    setTimeout(() => {
+      this.map.getView().setCenter(this.coordinatenService.transform(this.middelpunt, this.middelpuntSrs));
+    }, 0);
   }
 
   refresh() {
