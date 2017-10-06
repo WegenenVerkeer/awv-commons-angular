@@ -48,8 +48,8 @@ export class KaartComponent implements OnInit, OnChanges {
 
   maakKaart(): ol.Map {
     return new ol.Map(<olx.MapOptions>{
-      controls: ol.control.defaults(),
-      interactions: ol.interaction.defaults(),
+      controls: [],
+      interactions: [],
       layers: [],
       pixelRatio: 1, // dit moet op 1 staan anders zal OL 512x512 tiles ophalen op retina displays en die zitten niet in onze geowebcache
       target: this.mapElement.nativeElement,

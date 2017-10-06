@@ -7,13 +7,10 @@
 <div>
   <awv-kaart [breedte]="800">
     <awv-kaart-wdb-laag [titel]="'Dienstkaart kleur'" [laag]="'dienstkaart-kleur'"></awv-kaart-wdb-laag>
-    <awv-kaart-schaal></awv-kaart-schaal>
-    <awv-kaart-knop-volledig-scherm></awv-kaart-knop-volledig-scherm>
-    <awv-kaart-knop-zoom-slider></awv-kaart-knop-zoom-slider>
   </awv-kaart>
 </div>
 
-<h3>Ingezoomd + features + onclick event voor feature</h3>
+<h3>Ingezoomd + 1 feature + onclick event voor feature + schaal + volledig scherm knop</h3>
 
 <div>
   <awv-kaart [breedte]="800" [zoom]="7" [middelpunt]="installatie">
@@ -22,7 +19,6 @@
                              (featureGeselecteerd)="installatieGeselecteed($event)"></awv-kaart-toon-features>
     <awv-kaart-schaal></awv-kaart-schaal>
     <awv-kaart-knop-volledig-scherm></awv-kaart-knop-volledig-scherm>
-    <awv-kaart-knop-zoom-slider></awv-kaart-knop-zoom-slider>
   </awv-kaart>
 
   <pre *ngFor="let event of installatieGeselecteerdEvents">
@@ -30,7 +26,7 @@
   </pre>
 </div>
 
-<h3>Ingezoomd (met WGS 84 coordinaten)</h3>
+<h3>Ingezoomd (met WGS 84 coordinaten) + schaal</h3>
 
 <div>
   <awv-kaart [breedte]="800" [zoom]="7"
@@ -46,9 +42,6 @@
   <awv-kaart [breedte]="800">
     <awv-kaart-ortho-laag [titel]="'Ortho'"></awv-kaart-ortho-laag>
     <awv-kaart-teken-polygoon-laag (polygonGetekend)="polygoonGetekend($event)"></awv-kaart-teken-polygoon-laag>
-    <awv-kaart-schaal></awv-kaart-schaal>
-    <awv-kaart-knop-volledig-scherm></awv-kaart-knop-volledig-scherm>
-    <awv-kaart-knop-zoom-slider></awv-kaart-knop-zoom-slider>
   </awv-kaart>
 
   <pre *ngFor="let event of polygoonEvents">
@@ -83,5 +76,7 @@
     <awv-kaart-knop-laag-kiezer></awv-kaart-knop-laag-kiezer>
     <awv-kaart-knop-volledig-scherm></awv-kaart-knop-volledig-scherm>
     <awv-kaart-knop-zoom-slider></awv-kaart-knop-zoom-slider>
+    <awv-kaart-standaard-knoppen></awv-kaart-standaard-knoppen>
+    <awv-kaart-standaard-interacties></awv-kaart-standaard-interacties>
   </awv-kaart>
 </div>

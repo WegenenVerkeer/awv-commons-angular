@@ -13,6 +13,8 @@ import {KaartConfig} from "./kaart.config";
 import {KaartWdbLaagComponent} from "./kaart-wdb-laag.component";
 import {KaartOrthoLaagComponent} from "./kaart-ortho-laag.component";
 import {CoordinatenService} from "./coordinaten.service";
+import {KaartStandaardInteractiesComponent} from "./kaart-standaard-interacties.component";
+import {KaartStandaardKnoppenComponent} from "./kaart-standaard-knoppen.component";
 
 const components: any[] = [
   KaartComponent,
@@ -21,6 +23,8 @@ const components: any[] = [
   KaartKnopZoomSliderComponent,
   KaartOrthoLaagComponent,
   KaartSchaalComponent,
+  KaartStandaardInteractiesComponent,
+  KaartStandaardKnoppenComponent,
   KaartTekenPolygoonLaagComponent,
   KaartToonFeaturesComponent,
   KaartVectorLaagComponent,
@@ -63,6 +67,8 @@ export * from "./kaart-knop-laag-kiezer.component";
 export * from "./kaart-knop-volledig-scherm.component";
 export * from "./kaart-knop-zoom-slider.component";
 export * from "./kaart-schaal.component";
+export * from "./kaart-standaard-interacties.component";
+export * from "./kaart-standaard-knoppen.component";
 export * from "./kaart-teken-polygoon-laag.component";
 export * from "./kaart-toon-features.component";
 export * from "./kaart-vector-laag.component";
