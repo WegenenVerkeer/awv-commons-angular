@@ -3,6 +3,7 @@ import * as ol from "openlayers";
 import {GoogleLocatieZoekerService} from "../lib/google-locatie-zoeker/google-locatie-zoeker.service";
 import "rxjs/add/operator/mergeMap";
 import "rxjs/add/operator/map";
+import {CoordinatenService} from "../lib/kaart/coordinaten.service";
 
 @Component({
   selector: "awv-commons-test-app",
@@ -17,12 +18,12 @@ export class AppComponent {
   installaties: ol.Collection<ol.Feature> = new ol.Collection();
   zoekresultaten: ol.Collection<ol.Feature> = new ol.Collection();
 
-  installatie = {
-    x: 180055.62,
-    y: 190922.71
-  };
+  installatie: ol.Coordinate = [180055.62, 190922.71];
 
-  constructor(private googleLocatieZoekerService: GoogleLocatieZoekerService) {
+  // https://epsg.io/4326
+  installatieWgs84: ol.Coordinate = [4.7970553, 51.0257317];
+
+  constructor(private googleLocatieZoekerService: GoogleLocatieZoekerService, public coordinatenService: CoordinatenService) {
     const pinIcon = new ol.style.Style({
       image: new ol.style.Icon({
         anchor: [0.5, 1],
@@ -44,7 +45,7 @@ export class AppComponent {
       })
     });
 
-    const feature = new ol.Feature(new ol.geom.Point([this.installatie.x, this.installatie.y]));
+    const feature = new ol.Feature(new ol.geom.Point(this.installatie));
     feature.setStyle(pinIcon);
     this.installaties.push(feature);
   }

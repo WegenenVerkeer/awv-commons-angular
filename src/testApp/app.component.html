@@ -13,10 +13,10 @@
   </awv-kaart>
 </div>
 
-<h3>Ingezoomd + features</h3>
+<h3>Ingezoomd + features + onclick event voor feature</h3>
 
 <div>
-  <awv-kaart [breedte]="800" [zoom]="7" [middelpunt]="[installatie.x, installatie.y]">
+  <awv-kaart [breedte]="800" [zoom]="7" [middelpunt]="installatie">
     <awv-kaart-wdb-laag [titel]="'Dienstkaart grijs'" [laag]="'dienstkaart-grijs'"></awv-kaart-wdb-laag>
     <awv-kaart-toon-features [features]="installaties" (featureGeselecteerd)="installatieGeselecteed($event)"></awv-kaart-toon-features>
     <awv-kaart-schaal></awv-kaart-schaal>
@@ -27,6 +27,15 @@
   <pre *ngFor="let event of installatieGeselecteerdEvents">
     Event gegooid: {{ event | json }}
   </pre>
+</div>
+
+<h3>Ingezoomd (met WGS 84 coordinaten)</h3>
+
+<div>
+  <awv-kaart [breedte]="800" [zoom]="7" [middelpunt]="coordinatenService.transformWgs84(installatieWgs84)">
+    <awv-kaart-wdb-laag [titel]="'Dienstkaart kleur'" [laag]="'dienstkaart-kleur'"></awv-kaart-wdb-laag>
+    <awv-kaart-schaal></awv-kaart-schaal>
+  </awv-kaart>
 </div>
 
 <h3>Orhto laag + teken polygoon</h3>

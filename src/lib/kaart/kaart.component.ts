@@ -1,8 +1,9 @@
-import {Component, ElementRef, Input, NgZone, OnChanges, OnInit, ViewChild, ViewEncapsulation} from "@angular/core";
+import {Component, ElementRef, Input, NgZone, OnChanges, OnInit, SimpleChanges, ViewChild, ViewEncapsulation} from "@angular/core";
 import {KaartConfig} from "./kaart.config";
 
 import * as ol from "openlayers";
 import * as proj4 from "proj4";
+import {CoordinatenService} from "./coordinaten.service";
 
 @Component({
   selector: "awv-kaart",
