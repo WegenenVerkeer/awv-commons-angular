@@ -1,7 +1,6 @@
 import * as ol from "openlayers";
 
 export class CoordinatenService {
-
   /**
    * Zet WGS 84 om naar Lambert 72
    *
