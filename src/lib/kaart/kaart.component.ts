@@ -41,6 +41,10 @@ export class KaartComponent implements OnInit, OnChanges {
   }
 
   refresh() {
+    if (!this.map) {
+      return;
+    }
+
     setTimeout(() => {
       this.map.updateSize();
     }, 0);
