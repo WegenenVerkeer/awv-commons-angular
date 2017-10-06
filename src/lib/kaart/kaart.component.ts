@@ -1,4 +1,4 @@
-import {AfterViewChecked, AfterViewInit, Component, ElementRef, Input, NgZone, OnInit, ViewChild, ViewEncapsulation} from "@angular/core";
+import {AfterViewChecked, Component, ElementRef, Input, NgZone, OnInit, ViewChild, ViewEncapsulation} from "@angular/core";
 import {KaartConfig} from "./kaart.config";
 
 import * as ol from "openlayers";
@@ -18,7 +18,7 @@ export class KaartComponent implements OnInit, AfterViewChecked {
   @Input() zoom = 2;
   @Input() minZoom = 2;
   @Input() maxZoom = 13;
-  @Input() middelpunt: number[] = [130000, 184000];
+  @Input() middelpunt: ol.Coordinate = [130000, 184000];
   @Input() breedte; // neem standaard de hele breedte in
   @Input() hoogte = 400;
   @Input() projectie = this.getDienstkaartProjectie();
