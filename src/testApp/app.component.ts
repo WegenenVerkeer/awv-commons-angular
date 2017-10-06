@@ -20,8 +20,8 @@ export class AppComponent {
 
   installatie: ol.Coordinate = [180055.62, 190922.71];
 
-  // https://epsg.io/4326
-  installatieWgs84: ol.Coordinate = [4.7970553, 51.0257317];
+  lat = 4.7970553;
+  long = 51.0257317;
 
   constructor(private googleLocatieZoekerService: GoogleLocatieZoekerService, public coordinatenService: CoordinatenService) {
     const pinIcon = new ol.style.Style({

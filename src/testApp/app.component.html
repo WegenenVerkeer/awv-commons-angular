@@ -29,8 +29,10 @@
 <h3>Ingezoomd (met WGS 84 coordinaten) + schaal</h3>
 
 <div>
+  <p><label>Lat: </label><input [(ngModel)]="lat" type="text"/></p>
+  <p><label>Long: </label><input [(ngModel)]="long" type="text"/></p>
   <awv-kaart [breedte]="800" [zoom]="7"
-             [middelpunt]="coordinatenService.transformWgs84(installatieWgs84[0],installatieWgs84[1])">
+             [middelpunt]="coordinatenService.transformWgs84(lat, long)">
     <awv-kaart-wdb-laag [titel]="'Dienstkaart kleur'" [laag]="'dienstkaart-kleur'"></awv-kaart-wdb-laag>
     <awv-kaart-schaal></awv-kaart-schaal>
   </awv-kaart>

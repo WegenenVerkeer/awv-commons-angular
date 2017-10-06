@@ -34,7 +34,11 @@ export class KaartComponent implements OnInit, OnChanges {
     });
   }
 
-  ngOnChanges() {
+  ngOnChanges(changes: SimpleChanges) {
+    if (this.map && "middelpunt" in changes) {
+      this.map.getView().setCenter(changes.middelpunt.currentValue);
+    }
+
     this.zone.runOutsideAngular(() => {
       this.refresh();
     });

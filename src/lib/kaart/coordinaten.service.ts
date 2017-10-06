@@ -38,6 +38,6 @@ export class CoordinatenService {
    * @returns Lambert 72 coordinaat
    */
   transform(x: number, y: number, source: string): [number, number] {
-    return ol.proj.transform([x, y], source, "EPSG:31370");
+    return ol.proj.transform([Number(x), Number(y)], source, "EPSG:31370");
   }
 }
