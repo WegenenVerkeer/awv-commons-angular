@@ -1,5 +1,6 @@
 import * as ol from "openlayers";
 
+@Injectable()
 export class CoordinatenService {
   /**
    * Zet WGS 84 om naar Lambert 72
