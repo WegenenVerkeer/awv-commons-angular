@@ -18,7 +18,8 @@
 <div>
   <awv-kaart [breedte]="800" [zoom]="7" [middelpunt]="installatie">
     <awv-kaart-wdb-laag [titel]="'Dienstkaart grijs'" [laag]="'dienstkaart-grijs'"></awv-kaart-wdb-laag>
-    <awv-kaart-toon-features [features]="installaties" (featureGeselecteerd)="installatieGeselecteed($event)"></awv-kaart-toon-features>
+    <awv-kaart-toon-features [features]="installaties"
+                             (featureGeselecteerd)="installatieGeselecteed($event)"></awv-kaart-toon-features>
     <awv-kaart-schaal></awv-kaart-schaal>
     <awv-kaart-knop-volledig-scherm></awv-kaart-knop-volledig-scherm>
     <awv-kaart-knop-zoom-slider></awv-kaart-knop-zoom-slider>
@@ -32,7 +33,8 @@
 <h3>Ingezoomd (met WGS 84 coordinaten)</h3>
 
 <div>
-  <awv-kaart [breedte]="800" [zoom]="7" [middelpunt]="coordinatenService.transformWgs84(installatieWgs84)">
+  <awv-kaart [breedte]="800" [zoom]="7"
+             [middelpunt]="coordinatenService.transformWgs84(installatieWgs84[1],installatieWgs84[0])">
     <awv-kaart-wdb-laag [titel]="'Dienstkaart kleur'" [laag]="'dienstkaart-kleur'"></awv-kaart-wdb-laag>
     <awv-kaart-schaal></awv-kaart-schaal>
   </awv-kaart>
