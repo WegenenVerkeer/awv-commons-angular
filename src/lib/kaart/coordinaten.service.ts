@@ -10,18 +10,18 @@ export class CoordinatenService {
    * @returns Lambert 72 coordinaat
    */
   transformWgs84(coordinaat: ol.Coordinate): ol.Coordinate {
-    return this.transform(coordinaat, "EPSG:4326", "EPSG:31370");
+    return this.transform(coordinaat, "EPSG:4326");
   }
 
   /**
-   * Zet coordinaat om
+   * Zet coordinaat om van de gegeven EPSG code naar Lambert 72
    *
    * @param {ol.Coordinate} coordinaat
    * @param {string} source
    * @param {string} destination
    * @returns {ol.Coordinate}
    */
-  transform(coordinaat: ol.Coordinate, source: string, destination: string): ol.Coordinate {
-    return ol.proj.transform(coordinaat, source, destination);
+  transform(coordinaat: ol.Coordinate, source: string): ol.Coordinate {
+    return ol.proj.transform(coordinaat, source, "EPSG:31370");
   }
 }
