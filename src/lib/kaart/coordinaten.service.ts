@@ -21,8 +21,8 @@ export class CoordinatenService {
   /**
    * Zet WGS 84 om naar Lambert 72
    *
-   * @param latitude
-   * @param longitude
+   * @param latitude latitude
+   * @param longitude longitude
    * @returns Lambert 72 coordinaat
    */
   transformWgs84(latitude: number, longitude: number): [number, number] {
@@ -34,8 +34,8 @@ export class CoordinatenService {
    *
    * @param x x
    * @param y y
-   * @param {string} source
-   * @returns {ol.Coordinate}
+   * @param source SRS
+   * @returns Lambert 72 coordinaat
    */
   transform(x: number, y: number, source: string): [number, number] {
     return ol.proj.transform([x, y], source, "EPSG:31370");
