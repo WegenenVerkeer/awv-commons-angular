@@ -22,14 +22,14 @@ export class KaartToonFeaturesComponent extends KaartVectorLaagComponent impleme
   ngOnInit(): void {
     super.ngOnInit();
     this.zone.runOutsideAngular(() => {
-      this.renderFeatures(this.features);
+      this.renderFeatures();
     });
   }
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
     this.zone.runOutsideAngular(() => {
-      this.clear(this.features);
+      this.clear();
     });
   }
 
@@ -40,17 +40,17 @@ export class KaartToonFeaturesComponent extends KaartVectorLaagComponent impleme
 
     this.zone.runOutsideAngular(() => {
       if ("features" in changes) {
-        // this.clear();
-        this.renderFeatures(changes.features.currentValue);
+        this.clear();
+        this.renderFeatures();
       }
     });
   }
 
-  private renderFeatures(features: ol.Collection<ol.Feature>) {
-    this.vectorLaag.getSource().addFeatures(features.getArray());
+  private renderFeatures() {
+    this.vectorLaag.getSource().addFeatures(this.features.getArray());
 
     this.selecteerFeatureInteraction = new ol.interaction.Select({
-      features: features,
+      features: this.features,
       layers: layer => layer.get("selectable") === true,
       condition: ol.events.condition.singleClick
     });
@@ -66,8 +66,8 @@ export class KaartToonFeaturesComponent extends KaartVectorLaagComponent impleme
     this.kaart.map.addInteraction(this.selecteerFeatureInteraction);
   }
 
-  private clear(features: ol.Collection<ol.Feature>) {
-    features.forEach(feature => this.vectorLaag.getSource().removeFeature(feature));
+  private clear() {
+    this.features.forEach(feature => this.vectorLaag.getSource().removeFeature(feature));
     this.kaart.map.removeInteraction(this.selecteerFeatureInteraction);
   }
 }

@@ -14,6 +14,7 @@ export class KaartWmsLaagComponent implements OnInit, OnDestroy {
   @Input() urls: string[];
   @Input() laag: string;
   @Input() tiles = true;
+  @Input() type: string;
   @Input() srs = "EPSG:31370";
   @Input() versie?: string;
   @Input() extent: ol.Extent = [18000.0, 152999.75, 280144.0, 415143.75];
@@ -41,6 +42,7 @@ export class KaartWmsLaagComponent implements OnInit, OnDestroy {
   maakWmsLayer(): ol.layer.Tile {
     return new ol.layer.Tile(<olx.layer.TileOptions>{
       title: this.titel,
+      type: this.type,
       visible: this.zichtbaar,
       extent: this.extent,
       source: new ol.source.TileWMS({
