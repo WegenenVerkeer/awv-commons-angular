@@ -49,11 +49,13 @@ export class KaartModule {
   static withDefaults(): ModuleWithProviders {
     return KaartModule.forRoot({
       wdb: {
-        urls: [
-          "https://wms1.apps.mow.vlaanderen.be/geowebcache/service/wms",
-          "https://wms2.apps.mow.vlaanderen.be/geowebcache/service/wms",
-          "https://wms3.apps.mow.vlaanderen.be/geowebcache/service/wms"
-        ]
+        // enkel dev kent referentiepunten ?
+        urls: ["https://apps-dev.mow.vlaanderen.be/geoserver/wms"]
+        // urls: [
+        //   "https://wms1.apps.mow.vlaanderen.be/geowebcache/service/wms",
+        //   "https://wms2.apps.mow.vlaanderen.be/geowebcache/service/wms",
+        //   "https://wms3.apps.mow.vlaanderen.be/geowebcache/service/wms"
+        // ]
       },
       orthofotomozaiek: {
         urls: ["http://geoservices.informatievlaanderen.be/raadpleegdiensten/omwrgbmrvl/wms"]

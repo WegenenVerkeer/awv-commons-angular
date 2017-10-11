@@ -20,7 +20,7 @@ export class KaartKnopLaagKiezerComponent implements OnInit, OnDestroy {
     this.zone.runOutsideAngular(() => {
       this.laagKiezer = new LayerSwitcher({
         tipLabel: this.tipLabel,
-        target: this.kaart.mapElement.nativeElement.querySelector(".ol-viewport")
+        target: this.kaart.mapElement.nativeElement.querySelector(".ol-overlaycontainer-stopevent")
       });
 
       this.kaart.map.addControl(this.laagKiezer);
