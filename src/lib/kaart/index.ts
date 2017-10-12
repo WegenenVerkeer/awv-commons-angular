@@ -49,11 +49,7 @@ export class KaartModule {
   static withDefaults(): ModuleWithProviders {
     return KaartModule.forRoot({
       wdb: {
-        urls: [
-          "https://wms1.apps.mow.vlaanderen.be/geoserver/wms",
-          "https://wms2.apps.mow.vlaanderen.be/geoserver/wms",
-          "https://wms3.apps.mow.vlaanderen.be/geoserver/wms"
-        ]
+        urls: ["https://wms1.apps.mow.vlaanderen.be/geoserver/wms", "https://wms2.apps.mow.vlaanderen.be/geoserver/wms", "https://wms3.apps.mow.vlaanderen.be/geoserver/wms"]
       },
       orthofotomozaiek: {
         urls: ["http://geoservices.informatievlaanderen.be/raadpleegdiensten/omwrgbmrvl/wms"]
