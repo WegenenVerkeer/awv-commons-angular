@@ -76,7 +76,7 @@ export class KaartComponent implements OnInit, OnChanges, OnDestroy {
       logo: false,
       view: new ol.View({
         projection: this.projectie,
-        center: [this.middelpunt[0], this.middelpunt[1]],
+        center: this.middelpunt,
         minZoom: this.minZoom,
         maxZoom: this.maxZoom,
         zoom: this.zoom
