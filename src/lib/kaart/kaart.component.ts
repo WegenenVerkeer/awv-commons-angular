@@ -1,6 +1,7 @@
 import {Component, ElementRef, Input, NgZone, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild, ViewEncapsulation} from "@angular/core";
 import {KaartConfig} from "./kaart.config";
 
+import * as _ from "lodash";
 import * as ol from "openlayers";
 import {CoordinatenService} from "./coordinaten.service";
 
@@ -38,7 +39,6 @@ export class KaartComponent implements OnInit, OnChanges, OnDestroy {
     this.zone.runOutsideAngular(() => {
       if (this.map) {
         this.map.setTarget(null);
-        this.map = null;
       }
     });
   }
@@ -46,7 +46,7 @@ export class KaartComponent implements OnInit, OnChanges, OnDestroy {
   ngOnChanges(changes: SimpleChanges) {
     this.zone.runOutsideAngular(() => {
       if ("middelpunt" in changes) {
-        if (changes.middelpunt.currentValue !== changes.middelpunt.previousValue) {
+        if (!_.isEqual(changes.middelpunt.currentValue, changes.middelpunt.previousValue)) {
           this.centreer();
         }
       }

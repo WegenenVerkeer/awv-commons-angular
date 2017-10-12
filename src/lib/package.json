@@ -25,7 +25,8 @@
     "openlayers": "^4.3.4",
     "proj4": "^2.4.4",
     "rxjs": "^5.4.3",
-    "zone.js": "^0.8.17"
+    "zone.js": "^0.8.17",
+    "lodash": "^4.17.4"
   },
   "publishConfig": {
     "registry": "https://collab.mow.vlaanderen.be/artifacts/repository/npm-internal/"
