@@ -1,8 +1,7 @@
-import {Component, ElementRef, Input, NgZone, OnChanges, OnInit, SimpleChanges, ViewChild, ViewEncapsulation} from "@angular/core";
+import {Component, ElementRef, Input, NgZone, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild, ViewEncapsulation} from "@angular/core";
 import {KaartConfig} from "./kaart.config";
 
 import * as ol from "openlayers";
-import proj4 from "proj4";
 import {CoordinatenService} from "./coordinaten.service";
 
 @Component({
@@ -11,7 +10,7 @@ import {CoordinatenService} from "./coordinaten.service";
   styleUrls: ["../../../node_modules/openlayers/css/ol.css", "./kaart.component.scss"],
   encapsulation: ViewEncapsulation.Native
 })
-export class KaartComponent implements OnInit, OnChanges {
+export class KaartComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild("map") mapElement: ElementRef;
 
   map: ol.Map;
@@ -35,10 +34,21 @@ export class KaartComponent implements OnInit, OnChanges {
     });
   }
 
+  ngOnDestroy() {
+    this.zone.runOutsideAngular(() => {
+      if (this.map) {
+        this.map.setTarget(null);
+        this.map = null;
+      }
+    });
+  }
+
   ngOnChanges(changes: SimpleChanges) {
     this.zone.runOutsideAngular(() => {
       if ("middelpunt" in changes) {
-        this.centreer();
+        if (changes.middelpunt.currentValue !== changes.middelpunt.previousValue) {
+          this.centreer();
+        }
       }
       this.refresh();
     });
