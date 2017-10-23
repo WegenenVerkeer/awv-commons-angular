@@ -19,7 +19,7 @@ export class KaartComponent implements OnInit, OnChanges, OnDestroy {
   @Input() zoom = 2;
   @Input() minZoom = 2;
   @Input() maxZoom = 13;
-  @Input() middelpunt: ol.Coordinate = [130000, 184000];
+  @Input() middelpunt: ol.Coordinate = [130000, 184000]; // "extent" heeft voorrang
   @Input() breedte; // neem standaard de hele breedte in
   @Input() hoogte = 400;
   @Input() projectie = this.getDienstkaartProjectie();
@@ -54,6 +54,7 @@ export class KaartComponent implements OnInit, OnChanges, OnDestroy {
 
       if ("extent" in changes) {
         if (!_.isEqual(changes.extent.currentValue, changes.extent.previousValue)) {
+          this.middelpunt = ol.extent.getCenter(changes.extent.currentValue);
           this.zoomToExtent();
         }
       }
