@@ -34,6 +34,16 @@
   </pre>
 </div>
 
+<h3>Ingezoomd dmv extent + schaal</h3>
+
+<div>
+  <p>Vul zelf lengtegraad en breedtegraad in.</p>
+  <awv-kaart [breedte]="800" [zoom]="2" [middelpunt]="installatie" [extent]="installatieExtent">
+    <awv-kaart-wdb-laag [titel]="'Dienstkaart grijs'" [laag]="'dienstkaart-grijs'"></awv-kaart-wdb-laag>
+    <awv-kaart-schaal></awv-kaart-schaal>
+  </awv-kaart>
+</div>
+
 <h3>Ingezoomd (met WGS 84 coordinaten) + schaal</h3>
 
 <div>

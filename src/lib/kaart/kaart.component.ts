@@ -23,6 +23,7 @@ export class KaartComponent implements OnInit, OnChanges, OnDestroy {
   @Input() breedte; // neem standaard de hele breedte in
   @Input() hoogte = 400;
   @Input() projectie = this.getDienstkaartProjectie();
+  @Input() extent;
 
   constructor(@Input() public config: KaartConfig, private zone: NgZone, private coordinatenService: CoordinatenService) {}
 
@@ -50,6 +51,12 @@ export class KaartComponent implements OnInit, OnChanges, OnDestroy {
           this.centreer();
         }
       }
+
+      if ("extent" in changes) {
+        if (!_.isEqual(changes.extent.currentValue, changes.extent.previousValue)) {
+          this.zoomToExtent();
+        }
+      }
       this.refresh();
     });
   }
@@ -57,6 +64,12 @@ export class KaartComponent implements OnInit, OnChanges, OnDestroy {
   centreer() {
     setTimeout(() => {
       this.map.getView().setCenter(this.middelpunt);
+    }, 0);
+  }
+
+  zoomToExtent() {
+    setTimeout(() => {
+      this.map.getView().fit(this.extent);
     }, 0);
   }
 
