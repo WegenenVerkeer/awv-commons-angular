@@ -29,7 +29,7 @@ export class KaartToonFeaturesComponent extends KaartVectorLaagComponent impleme
   ngOnDestroy(): void {
     super.ngOnDestroy();
     this.zone.runOutsideAngular(() => {
-      this.clear(this.features);
+      this.clear();
     });
   }
 
@@ -40,7 +40,7 @@ export class KaartToonFeaturesComponent extends KaartVectorLaagComponent impleme
 
     this.zone.runOutsideAngular(() => {
       if ("features" in changes) {
-        this.clear(changes.features.previousValue);
+        this.clear();
         this.renderFeatures(changes.features.currentValue);
       }
     });
@@ -66,10 +66,8 @@ export class KaartToonFeaturesComponent extends KaartVectorLaagComponent impleme
     this.kaart.map.addInteraction(this.selecteerFeatureInteraction);
   }
 
-  private clear(features: ol.Collection<ol.Feature>) {
-    if (features) {
-      features.forEach(feature => this.vectorLaag.getSource().removeFeature(feature));
-    }
+  private clear() {
+    this.vectorLaag.getSource().clear(true);
     this.kaart.map.removeInteraction(this.selecteerFeatureInteraction);
   }
 }
