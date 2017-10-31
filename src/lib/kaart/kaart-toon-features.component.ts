@@ -67,7 +67,9 @@ export class KaartToonFeaturesComponent extends KaartVectorLaagComponent impleme
   }
 
   private clear(features: ol.Collection<ol.Feature>) {
-    features.forEach(feature => this.vectorLaag.getSource().removeFeature(feature));
+    if (features) {
+      features.forEach(feature => this.vectorLaag.getSource().removeFeature(feature));
+    }
     this.kaart.map.removeInteraction(this.selecteerFeatureInteraction);
   }
 }
